@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use stdClass;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -36,6 +37,25 @@ class PostController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    /**
+     * Display the specified clicked resource.
+     */
+    public function view(string $id) {
+        // $post = \App\Models\Post::find($id);
+
+        // Create a dummy post object
+        $post = new stdClass();
+        $post->id = $id;
+        $post->user_id = 1; 
+        $post->body = "Dummy post body";
+        $post->published_at = now(); 
+        $post->likes = 0;
+        $post->comments = 5;
+        $post->image = 'images/posts/sky.jpg'; 
+
+        return view('posts.view', ['post' => $post]);
     }
 
     /**
