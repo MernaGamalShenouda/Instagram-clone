@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,5 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/instagram', [HomeController::class, 'index'])->name('home.index');
 Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
