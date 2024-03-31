@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Egulias\EmailValidator\Parser\Comment;
+// use Egulias\EmailValidator\Parser\Comment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,4 +29,9 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
+    public function isLiked($userId){
+        return $this->likes->contains('user_id', $userId);
+
+    }
+
 }

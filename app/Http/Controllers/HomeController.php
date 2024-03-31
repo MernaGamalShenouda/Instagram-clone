@@ -5,20 +5,64 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Like;
+use App\Models\Comment;
 use App\Models\Follower;
+use Carbon\Carbon;
+
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
+        $user=User::find(3);
 
-        $followeeIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
+        $followeeIds = Follower::where('follower_id', 3)->pluck('followee_id');
 
         $posts = Post::whereIn('user_id', $followeeIds)
-                     ->orderBy('created_at', 'desc')
-                     ->get();
+                    ->with('user', 'comments.user')
+                    ->withCount('likes', 'comments')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
         return view('home.index', ['user' => $user, 'posts' => $posts]);
     }
+
+    public function createComment(Request $request)
+    {
+        $this->validate($request, [
+            'content' => 'required',
+            'post_id' => 'required',
+            'post_id' => 'required',
+        ]);
+
+        Comment::create([
+            'content' => $request->content,
+            'post_id' => $request->input('post_id'),
+            'user_id' => $request->input('user_id'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return redirect()->route('home.index');
+    }
+
+    public function createLike(Request $request){
+        $this->validate($request, [
+            'post_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        Like::create([
+            'post_id' => $request->input('post_id'),
+            'user_id' => $request->input('user_id'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return redirect()->route('home.index');
+    }
+
 }

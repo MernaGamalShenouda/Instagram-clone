@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Instagram</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/1409/1409946.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -43,32 +44,86 @@
                             <div class="card-title d-flex align-items-center">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar">
-                                        <img src="{{ $post->user->profile_image }}" alt="{{ $post->user->username }}"
-                                            class="img-fluid">
+                                        <img src="{{ asset('images/home/' . $post->user->avatar) }}"
+                                            alt="{{ $post->user->username }}" class="img-fluid">
                                     </div>
-                                    <span class="username mx-2">{{ $post->user->username }}</span>
+                                    <span class="username mx-2">
+                                        <b>{{ $post->user->username }}</b>
+                                    </span>
+                                    <span>
+                                        {{ $post->created_at->diffForHumans(null, true) }}</span>
                                 </div>
                                 <button type="button" class="btn btn-sm rounded-circle ellipsis">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </button>
                             </div>
                             <div>
-                                <img src="{{ $post->image }}" class="card-img-top" alt="...">
+                                <img src="{{ asset('images/home/' . $post->images) }}" class="card-img-top"
+                                    alt="...">
                                 <div class="icons">
-                                    <!-- Your existing code for icons -->
+                                    <div class="d-flex">
+                                        <form action="{{ route('home.create-like') }}" method="post"
+                                            class="form form-inline">
+                                            @csrf
+                                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                            <button type="submit"
+                                                class="btn btn-sm like-button {{ $post->isLiked($user->id) ? 'liked' : '' }}">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                        </form>
+
+
+                                        <button type="button" class="btn btn-sm">
+                                            <i class="far fa-comment"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-sm">
+                                            <i class="far fa-bookmark"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <small class="text-muted">Posted on: {{ $post->created_at->format('F j, Y') }}</small>
+                                <div class="likes">
+                                    <span>{{ $post->likes_count }} likes</span>
+                                    <br />
+                                    <small class="text-muted">
+                                        <span class="mx-1"><b>{{ $post->user->username }} </b></span>
+                                        <span>{{ substr($post->content, 0, 20) }}..</span>
+                                        <div class="comments">
+                                            <div class="comment">
+                                                <a><span>View all {{ $post->comments_count }} comments</span></a>
+                                            </div>
+                                        </div>
+                                    </small>
+                                    <div class="comment-input">
+                                        <form action="{{ route('home.create-comment') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                            <input type="hidden" name="user_id" value="{{ $post->user->id }}">
+                                            <input type="text" class="form-control" name="content"
+                                                placeholder="Add a comment...">
+                                            <button type="submit"
+                                                class="btn btn-primhary btn-sm add-comment">Post</button>
+                                        </form>
+
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-            </div>
 
+            </div>
+            <div class='col-3'></div>
         </div>
-        <div class='col-3'></div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="{{ asset('js/home/home.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+        <script src="{{ asset('js/home/home.js') }}"></script>
 </body>
 
 </html>

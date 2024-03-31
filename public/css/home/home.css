@@ -6,9 +6,8 @@
     border-radius: 50%;
     border: 5px solid transparent;
     transition: border-color 0.3s ease;
-
 }
-.story{
+.story {
     margin-left: 1em;
     display: flex;
     flex-direction: column;
@@ -20,14 +19,12 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-
 }
-.story-circles{
+.story-circles {
     display: flex;
     justify-content: start;
     height: 7em;
     overflow: hidden;
-
 }
 
 .animate-border {
@@ -38,29 +35,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
-.fa-heart:hover{
+.card {
+    margin: 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+.fa-heart:hover {
     color: red;
 }
-.fa-comment:hover{
+.fa-comment:hover {
     color: blue;
 }
-.fa-share:hover{
+.fa-share:hover {
     color: green;
 }
-.fa-bookmark:hover{
+.fa-bookmark:hover {
     color: grey;
 }
-.ellipsis:hover{
+.ellipsis:hover {
     background-color: rgb(216, 219, 226);
 }
-.icons{
+.icons {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
-.card-title{
+.card-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,5 +77,4 @@
     border-radius: 50%;
     border: 5px solid transparent;
     transition: border-color 0.3s ease;
-
 }

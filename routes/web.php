@@ -33,4 +33,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/instagram', [HomeController::class, 'index'])->name('home.index');
+Route::post('/instagram/like', [HomeController::class, 'createLike'])->name('home.create-like');
+Route::post('/instagram/comment', [HomeController::class, 'createComment'])->name('home.create-comment');
+
 Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
