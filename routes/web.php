@@ -32,3 +32,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
+Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');
