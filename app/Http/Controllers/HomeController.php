@@ -55,14 +55,23 @@ class HomeController extends Controller
             'user_id' => 'required',
         ]);
 
-        Like::create([
-            'post_id' => $request->input('post_id'),
-            'user_id' => $request->input('user_id'),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $existingLike = Like::where('post_id', $request->input('post_id'))
+                             ->where('user_id', $request->input('user_id'))
+                             ->first();
+
+        if ($existingLike) {
+            $existingLike->delete();
+        } else {
+            Like::create([
+                'post_id' => $request->input('post_id'),
+                'user_id' => $request->input('user_id'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
 
         return redirect()->route('home.index');
     }
+
 
 }

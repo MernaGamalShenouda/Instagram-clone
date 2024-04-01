@@ -43,16 +43,16 @@
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
 }
-.fa-heart:hover {
+.fa-heart {
     color: red;
 }
-.fa-comment:hover {
+.fa-comment {
     color: blue;
 }
-.fa-share:hover {
+.fa-share {
     color: green;
 }
-.fa-bookmark:hover {
+.fa-bookmark {
     color: grey;
 }
 .ellipsis:hover {
@@ -78,3 +78,30 @@
     border: 5px solid transparent;
     transition: border-color 0.3s ease;
 }
+.form-row {
+    border: none !important;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    display: flex;
+    flex-direction: row;
+    /* display: inline-flex; */
+
+}
+
+.form-row input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+a, a:hover{
+    text-decoration: none;
+}
+.icons button{
+    background-color: transparent;
+}
+/* .modal{
+    width: 100vh;
+    height: 100vh;
+} */

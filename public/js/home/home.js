@@ -48,6 +48,30 @@ class StoryAnimator {
             });
         });
     }
+    setupAddCommentListeners() {
+        this.addCommentButtons.forEach((button) => {
+            button.style.display = 'none'; // Hide the button initially
+        });
+
+        this.commentInputs = document.querySelectorAll(".form-control[name='content']");
+        this.commentInputs.forEach((input) => {
+            input.addEventListener('input', () => {
+                const button = input.parentElement.nextElementSibling.querySelector('.add-comment');
+                button.style.display = input.value.trim() !== '' ? 'inline-block' : 'none';
+            });
+        });
+
+        // Add event listener for "View all comments" link
+        document.querySelectorAll('.view-comments-link').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent the default link behavior
+                const postId = link.getAttribute('data-post-id'); // Get the post ID from the link's data attribute
+                const modal = new bootstrap.Modal(document.getElementById('commentModal')); // Get the modal element
+                modal.show(); // Show the modal
+            });
+        });
+    }
+
 
 
 }
