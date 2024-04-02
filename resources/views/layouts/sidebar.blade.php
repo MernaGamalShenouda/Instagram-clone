@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title')</title>
+    
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+        .sidebar {
+            background-color: white;
+            color: black;
+            height: 100vh;
+            position: fixed;
+            width: 245px;
+            top: 0;
+            left: 0;
+            padding-top: 35px;
+            padding-left: 5px;
+        }
+        a > img, .nav-link > span {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        a > img {
+            width: 20px;
+            height: 20px;
+        }
+        img {
+            cursor: pointer;
+        }
+        .sidebar .nav-link {
+            color: black;
+            font-size: 1.1rem;
+            padding: 14px 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar .bi {
+            margin-right: 14px;
+        }
+        .sidebar .nav-link:hover {
+            background-color: rgba(0, 0, 0, 0.1); 
+            border-radius: 15px; 
+            width: 210px;
+        }
+        .dropdown-menu {
+            border: none;
+            background-color: white; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform-origin: top; 
+            transform: translateY(-100%);
+            width: 250px; 
+        }
+        .dropdown-menu .dropdown-item {
+            color: #000; 
+            font-size: 1rem; 
+            padding: 14px 16px;
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        .dropdown-item:hover {
+            background-color: #f0f0f0; 
+            color: #333; 
+        }
+    
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar">
+            <div class="d-flex flex-column align-items-start px-3 pt-2">
+                <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
+                
+                <ul class="nav flex-column mb-0 ms-0">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="../assets/home.png" alt="">
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="bi bi-search"></i> Search
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="../assets/social.png" alt="">
+                            <span>Explore</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="../assets/video.png" alt="">
+                            <span>Reels</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="../assets/chat.png" alt="">
+                            <span>Messages</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="../assets/heart.png" alt="">
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="../assets/more.png" alt="">
+                            <span>Create</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="bi bi-person"></i> Profile
+                        </a>
+                    </li>
+                 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" id="moreDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-list"></i> More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="moreDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark"></i> Saved</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i> Switch Account</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="col-md-9">
+            <div class="container mt-5">
+               @yield('content')
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5.3.0 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
