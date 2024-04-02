@@ -38,3 +38,4 @@ Route::post('/instagram/comment', [HomeController::class, 'createComment'])->nam
 Route::post('/instagram/bookmark', [HomeController::class, 'createBookmark'])->name('home.bookmark');
 
 Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
+Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');

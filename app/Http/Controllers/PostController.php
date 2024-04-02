@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use stdClass;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -32,6 +33,33 @@ class PostController extends Controller
     }
 
     /**
+     * Store a newly created comment in storage.
+     */
+    public function storeComment(Request $request) {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'content' => 'required|string|max:255',
+            'post_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+            'updated_at' => 'nullable|date',
+            'created_at' => 'nullable|date',
+        ]);
+        
+        // Create a new comment instance
+        $comment = new \App\Models\Comment();
+        $comment->content = $validatedData['content'];
+        $comment->post_id = $validatedData['post_id'];
+        $comment->user_id = $validatedData['user_id'];
+        $comment->updated_at = $validatedData['updated_at'];
+        $comment->created_at = $validatedData['created_at'];
+                
+        $comment->save();
+
+        return redirect()->route('posts.view',['post_id' => $comment->post_id]);
+   }
+
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -43,19 +71,14 @@ class PostController extends Controller
      * Display the specified clicked resource.
      */
     public function view(string $id) {
-        // $post = \App\Models\Post::find($id);
+        $post = \App\Models\Post::with('user')->find($id);
+        $post->images = 'images/posts/sky.jpg'; 
+        $comments = \App\Models\Comment::where('post_id', $id)->get();
 
-        // Create a dummy post object
-        $post = new stdClass();
-        $post->id = $id;
-        $post->user_id = 1; 
-        $post->body = "Dummy post body";
-        $post->published_at = now(); 
-        $post->likes = 0;
-        $post->comments = 5;
-        $post->image = 'images/posts/sky.jpg'; 
-
-        return view('posts.view', ['post' => $post]);
+        $user = User::find($post->user_id);
+        $user->updateAvatar($user->id);
+        
+        return view('posts.view', ['post' => $post, 'comments' => $comments]);
     }
 
     /**

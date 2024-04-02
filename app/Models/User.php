@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'gender',
         'website',
         'bio',
+        'avatar',
         'image',
     ];
 
@@ -67,5 +69,26 @@ class User extends Authenticatable
     public function bookmarks()
     {
         return $this->hasMany(SavedPost::class);
+    }
+    public function updateAvatar($userId) {
+        try {
+            $user = User::findOrFail($userId);
+
+            $cloudName = env('CLOUDINARY_CLOUD_NAME');
+
+            if ($user->gender === 'female') {
+                $avatarPublicId = 'Avatars/femaleAvatar_qraros';
+            } else {
+                $avatarPublicId = 'Avatars/maleAvatar_sdmi4s';
+            }
+
+            $avatarUrl = "https://res.cloudinary.com/{$cloudName}/image/upload/{$avatarPublicId}";
+            $user->avatar = $avatarUrl;
+            $user->save();
+
+            return response()->json(['message' => 'User avatar updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error updating user avatar: ' . $e->getMessage()], 500);
+        }
     }
 }
