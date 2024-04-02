@@ -86,9 +86,16 @@
                                         </button>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-sm">
-                                            <i class="far fa-bookmark"></i>
-                                        </button>
+                                        <form action="{{ route('home.bookmark') }}" method="post"
+                                            class="form form-inline">
+                                            @csrf
+                                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                                            <button type="submit" class="btn btn-sm">
+                                                <i class="{{ $post->isBookmarked($user->id) ? 'fas' : 'far' }} fa-bookmark"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="likes">
@@ -112,7 +119,8 @@
                                                     class="form">
                                                     @csrf
                                                     <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                                    <input type="hidden" name="user_id" value="{{ $post->user->id }}">
+                                                    <input type="hidden" name="user_id"
+                                                        value="{{ $post->user->id }}">
                                                     <div class="form-row align-items-center flex-dir">
                                                         <div class="col">
                                                             <input type="text" class="form-control" name="content"

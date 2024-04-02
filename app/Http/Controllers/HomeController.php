@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\SavedPost;
 use App\Models\Follower;
 use Carbon\Carbon;
 
@@ -73,5 +74,29 @@ class HomeController extends Controller
         return redirect()->route('home.index');
     }
 
+    public function createBookmark(Request $request){
+        $this->validate($request, [
+            'post_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $existingBookmark = SavedPost::where('post_id', $request->input('post_id'))
+                             ->where('user_id', $request->input('user_id'))
+                             ->first();
+
+        if ($existingBookmark) {
+            $existingBookmark->delete();
+        } else {
+            SavedPost::create([
+                'post_id' => $request->input('post_id'),
+                'user_id' => $request->input('user_id'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('home.index');
+
+    }
 
 }

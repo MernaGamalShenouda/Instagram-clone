@@ -34,4 +34,13 @@ class Post extends Model
 
     }
 
+    public function bookmarks()
+    {
+        return $this->hasMany(SavedPost::class);
+    }
+    public function isBookmarked($userId){
+        return $this->bookmarks()->where('user_id', $userId)->exists();
+    }
+
+
 }
