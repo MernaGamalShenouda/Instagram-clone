@@ -36,7 +36,12 @@
                                     <div class="col-md-6 d-flex flex-column justify-content-between align-items-start">
                                        <!-- User Info  -->
                                        <div class="border col-md-12 post-userInfo-section">
-                                           <p><strong>User:</strong> {{ $post->user->username }}</p>
+                                            <div class="post-userInfo-content">
+                                                <img src="{{ $post->user->avatar }}" class="img-fluid rounded avatar-image" alt="User Avatar">
+                                                <div>
+                                                    <p class="username"><strong>{{ $post->user->username }}</strong></p>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!-- Body  -->
@@ -116,7 +121,7 @@
         </div>
     </div>
 
-<!-- Bootstrap JS (optional) -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     var comments = {!! json_encode($comments) !!};

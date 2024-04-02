@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use stdClass;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -74,6 +75,9 @@ class PostController extends Controller
         $post->images = 'images/posts/sky.jpg'; 
         $comments = \App\Models\Comment::where('post_id', $id)->get();
 
+        $user = User::find($post->user_id);
+        $user->updateAvatar($user->id);
+        
         return view('posts.view', ['post' => $post, 'comments' => $comments]);
     }
 

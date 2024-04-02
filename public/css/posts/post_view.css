@@ -75,11 +75,6 @@
     --bs-btn-border-color: none;
 }
 
-.post-userInfo-section{
-    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-    height: 10%;
-}
-
 .post-likes-section{
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     height: 20%;
@@ -91,4 +86,29 @@
 
 .btn-black:hover {
     color: gray; 
+}
+
+.post-userInfo-section {
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    height: 10%;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+}
+
+.post-userInfo-content {
+    display: flex;
+    align-items: center; /* Vertically center the content */
+}
+
+.avatar-image {
+    max-width: 10%; /* Adjust the maximum width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.username {
+    margin-left: 10px; /* Add spacing between avatar and username */
+    display: flex;
+    align-items: center;
+    margin-top: none !important;
+    margin-bottom: 0;
 }
