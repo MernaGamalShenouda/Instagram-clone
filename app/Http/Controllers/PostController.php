@@ -44,7 +44,7 @@ class PostController extends Controller
             'updated_at' => 'nullable|date',
             'created_at' => 'nullable|date',
         ]);
-        
+
         // Create a new comment instance
         $comment = new \App\Models\Comment();
         $comment->content = $validatedData['content'];
@@ -52,7 +52,7 @@ class PostController extends Controller
         $comment->user_id = $validatedData['user_id'];
         $comment->updated_at = $validatedData['updated_at'];
         $comment->created_at = $validatedData['created_at'];
-                
+
         $comment->save();
 
         return redirect()->route('posts.view',['post_id' => $comment->post_id]);
@@ -72,12 +72,12 @@ class PostController extends Controller
      */
     public function view(string $id) {
         $post = \App\Models\Post::with('user')->find($id);
-        $post->images = 'images/posts/sky.jpg'; 
+        $post->images = 'images/posts/sky.jpg';
         $comments = \App\Models\Comment::where('post_id', $id)->get();
 
         $user = User::find($post->user_id);
         $user->updateAvatar($user->id);
-        
+
         return view('posts.view', ['post' => $post, 'comments' => $comments]);
     }
 

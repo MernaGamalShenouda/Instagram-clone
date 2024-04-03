@@ -41,7 +41,7 @@
 }
 
 .card-body{
-    height:55%; 
+    height:55%;
     overflow-y: auto;
 }
 
@@ -55,8 +55,8 @@
 
 .form-control.border-0:focus,
 .form-control.border-0:active {
-    border-color: transparent; 
-    box-shadow: none; 
+    border-color: transparent;
+    box-shadow: none;
 }
 .dropdown-toggle::after {
     display: none; /* Hide the dropdown arrow */
@@ -64,11 +64,11 @@
 
 .custom-btn {
     background-color: white;
-    color: blue; 
+    color: blue;
 }
 
 .custom-btn:hover {
-    color: darkblue; 
+    color: darkblue;
 }
 
 .btn{
@@ -81,11 +81,11 @@
 }
 
 .btn-black {
-    color: black; 
+    color: black;
 }
 
 .btn-black:hover {
-    color: gray; 
+    color: gray;
 }
 
 .post-userInfo-section {
