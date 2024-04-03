@@ -18,9 +18,9 @@ class HomeController extends Controller
     public function index()
     {
         // $user = Auth::user();
-        $user=User::find(3);
+        $user=User::find(2);
 
-        $followeeIds = Follower::where('follower_id', 3)->pluck('followee_id');
+        $followeeIds = Follower::where('follower_id', 2)->pluck('followee_id');
 
         $posts = Post::whereIn('user_id', $followeeIds)
                     ->with('user', 'comments.user')

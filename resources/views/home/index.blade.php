@@ -46,7 +46,7 @@
                             <div class="card-title d-flex align-items-center">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar">
-                                        <img src="{{ asset('images/home/' . $post->user->avatar) }}"
+                                        <img src="{{ $post->user->avatar }}"
                                             alt="{{ $post->user->username }}" class="img-fluid">
                                     </div>
                                     <span class="username mx-2">
