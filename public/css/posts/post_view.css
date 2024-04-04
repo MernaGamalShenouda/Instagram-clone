@@ -1,4 +1,114 @@
-.modal-dialog{
-    max-width: 70% !important;
+*{
+    box-sizing: border-box;
 }
 
+.modal{
+    --bs-modal-border-color: none;
+}
+
+.modal-header{
+    padding: 0.5em ;
+}
+
+.btn-close {
+    color: white !important;
+}
+
+.modal-body{
+    padding: 0;
+}
+
+.modal-dialog{
+    margin: 0;
+    max-width: 100% !important;
+}
+
+.modal-content{
+    background-color: transparent;
+}
+
+.postImg-section{
+    background-color: black;
+}
+
+.card{
+    max-height: 90vh;
+    min-height: 90vh;
+}
+
+.card-outer-body{
+    height: 100vh;
+}
+
+.card-body{
+    height:55%;
+    overflow-y: auto;
+}
+
+/* .post-input-section{
+    height: 10%;
+} */
+
+.input-group{
+    padding: 0.5em;
+}
+
+.form-control.border-0:focus,
+.form-control.border-0:active {
+    border-color: transparent;
+    box-shadow: none;
+}
+.dropdown-toggle::after {
+    display: none; /* Hide the dropdown arrow */
+}
+
+.custom-btn {
+    background-color: white;
+    color: blue;
+}
+
+.custom-btn:hover {
+    color: darkblue;
+}
+
+.btn{
+    --bs-btn-border-color: none;
+}
+
+.post-likes-section{
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    height: 20%;
+}
+
+.btn-black {
+    color: black;
+}
+
+.btn-black:hover {
+    color: gray;
+}
+
+.post-userInfo-section {
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    height: 10%;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+}
+
+.post-userInfo-content {
+    display: flex;
+    align-items: center; /* Vertically center the content */
+}
+
+.avatar-image {
+    max-width: 10%; /* Adjust the maximum width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.username {
+    margin-left: 10px; /* Add spacing between avatar and username */
+    display: flex;
+    align-items: center;
+    margin-top: none !important;
+    margin-bottom: 0;
+}

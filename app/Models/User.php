@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -27,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'website',
         'bio',
+        'avatar',
         'image',
     ];
 
@@ -63,5 +65,40 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+    public function bookmarks()
+    {
+        return $this->hasMany(SavedPost::class);
+    }
+    public function updateAvatar($userId) {
+        try {
+            $user = User::findOrFail($userId);
+
+            $cloudName = env('CLOUDINARY_CLOUD_NAME');
+
+            if ($user->gender === 'female') {
+                $avatarPublicId = 'Avatars/femaleAvatar_qraros';
+            } else {
+                $avatarPublicId = 'Avatars/maleAvatar_sdmi4s';
+            }
+
+            $avatarUrl = "https://res.cloudinary.com/{$cloudName}/image/upload/{$avatarPublicId}";
+            $user->avatar = $avatarUrl;
+            $user->save();
+
+            return response()->json(['message' => 'User avatar updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error updating user avatar: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followee_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followee_id', 'follower_id')->withTimestamps();
     }
 }

@@ -1,0 +1,12 @@
+body{
+    font-size: .9em;
+}
+.suggested{
+    display: flex;
+    flex-direction: column;
+}
+
+.profileImage{
+    width: 40px !important;
+    height:40px !important;
+}
