@@ -25,31 +25,31 @@
                 <div class="row story-circles">
                     <div class="col-1 story">
                         <div class="story-circle">
-                            <img src="https://via.placeholder.com/200x200" alt="User 1" class="img-fluid">
+                            <img src="{{ asset('images\home\stories\flower.jpg') }}" alt="User 1" class="img-fluid">
                         </div>
                         <p>use1</p>
                     </div>
                     <div class="col-1 story">
                         <div class="story-circle">
-                            <img src="https://via.placeholder.com/200x200" alt="User 2" class="img-fluid">
+                            <img src="{{ asset('images\home\stories\Spider.jpeg') }}" alt="User 2" class="img-fluid">
                         </div>
                         <p>user2 </p>
                     </div>
                     <div class="col-1 story">
                         <div class="story-circle">
-                            <img src="https://via.placeholder.com/200x200" alt="User 3" class="img-fluid">
+                            <img src="{{ asset('images\home\stories\Hacker.jpeg') }}" alt="User 3" class="img-fluid">
                         </div>
                         <p>user3 </p>
                     </div>
                     <div class="col-1 story">
                         <div class="story-circle">
-                            <img src="https://via.placeholder.com/200x200" alt="User 4" class="img-fluid">
+                            <img src="{{ asset('images\home\stories\girl.jpeg') }}" alt="User 4" class="img-fluid">
                         </div>
                         <p>user4</p>
                     </div>
                     <div class="col-1 story">
                         <div class="story-circle">
-                            <img src="https://via.placeholder.com/200x200" alt="User 5" class="img-fluid">
+                            <img src="{{ asset('images\home\stories\Tom.jpeg') }}" alt="User 5" class="img-fluid">
                         </div>
                         <p>user5</p>
                     </div>
