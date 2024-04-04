@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use stdClass;
+use App\Models\Post;
+use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class PostController extends Controller
 {
@@ -19,23 +23,71 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    // In your controller method
+    // In your controller method
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'content' => 'required|string|max:255',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $post = new Post();
+        $post->content = $validatedData['content'];
+        $post->user_id = auth()->id();
+        $post->published_at = Carbon::now();
+
+        $tags = [];
+        preg_match_all('/#(\w+)/', $validatedData['content'], $tags);
+
+        $imagePublicIds = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                if ($image->isValid()) {
+                    // $imagePath = $image->store('images/posts', ['disk' => 'public']);
+                    $result = Cloudinary::upload($image->getRealPath(), [
+                        'folder' => 'Posts',
+                    ]);
+                    $imagePublicIds[] = $result->getPublicId();
+                }
+            }
+        }
+        $post->images = json_encode($imagePublicIds);
+
+
+        $post->save();
+
+        foreach ($tags[1] as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $tag->posts()->attach($post->id);
+        }
+
+        return redirect()->route('posts.view', ['post_id' => $post->id]);
     }
+
+    public function suggestTags(Request $request)
+    {
+        $tag = $request->input('tag');
+
+        $tags = Tag::where('name', 'like', $tag . '%')->limit(5)->get();
+
+        return response()->json($tags);
+    }
+
+
 
     /**
      * Store a newly created comment in storage.
      */
-    public function storeComment(Request $request) {
+    public function storeComment(Request $request)
+    {
         // Validate the request data
         $validatedData = $request->validate([
             'content' => 'required|string|max:255',
@@ -55,8 +107,8 @@ class PostController extends Controller
 
         $comment->save();
 
-        return redirect()->route('posts.view',['post_id' => $comment->post_id]);
-   }
+        return redirect()->route('posts.view', ['post_id' => $comment->post_id]);
+    }
 
 
     /**
@@ -70,15 +122,20 @@ class PostController extends Controller
     /**
      * Display the specified clicked resource.
      */
-    public function view(string $id) {
+    public function view(string $id)
+    {
         $post = \App\Models\Post::with('user')->find($id);
-        $post->images = 'images/posts/sky.jpg';
-        $comments = \App\Models\Comment::where('post_id', $id)->get();
+        // $post->images = 'images/posts/sky.jpg';
+        $comments = \App\Models\Comment::where('post_id', $id)->with('user')->get();
+
 
         $user = User::find($post->user_id);
         $user->updateAvatar($user->id);
 
-        return view('posts.view', ['post' => $post, 'comments' => $comments]);
+        $userSigned = User::find(auth()->id());
+        // dd($post->images);
+
+        return view('posts.view', ['post' => $post, 'comments' => $comments, 'user' => $userSigned]);
     }
 
     /**

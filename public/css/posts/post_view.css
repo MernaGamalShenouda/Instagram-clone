@@ -37,12 +37,12 @@
 }
 
 .card-outer-body{
-    height: 100vh;
+    height: 80vh;
 }
 
 .card-body{
-    height:55%;
-    overflow-y: auto;
+    max-height: 60vh;
+    overflow: auto;
 }
 
 /* .post-input-section{

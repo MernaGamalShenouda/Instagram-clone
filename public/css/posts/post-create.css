@@ -1,0 +1,34 @@
+.container-fluid {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.65);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.card {
+    height: 80vh !important;
+    border-radius: 11px !important;
+}
+
+.create-post-text {
+    font-size: 14.5px;
+}
+
+.transparent {
+    opacity: 0.15;
+}
+
+.digital-asset-image{
+    width: 15%;
+}
+
+.photos-text{
+    font-size: 18px;
+}
+
+.btn-primary{
+    font-size: 13px !important;
+    background-color: #0095f6 !important;
+    border: none !important;
+    border-radius: 8px !important;
+}

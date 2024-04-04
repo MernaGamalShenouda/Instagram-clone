@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    
+
     Route::get('/instagram', [HomeController::class, 'index'])->name('home.index');
     Route::post('/instagram/like', [HomeController::class, 'createLike'])->name('home.create-like');
     Route::post('/instagram/comment', [HomeController::class, 'createComment'])->name('home.create-comment');
@@ -43,7 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/{username}/unfollow', [ProfileController::class, 'unfollow'])->name('profile.unfollow');
     Route::get('/profile/{username}/followers', [ProfileController::class, 'followers'])->name('profile.followers');
     Route::get('/profile/{username}/following', [ProfileController::class, 'following'])->name('profile.following');
-
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/tags/suggest', [PostController::class, 'suggestTags'])->name('tags.suggest');
 });
 
     Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');
