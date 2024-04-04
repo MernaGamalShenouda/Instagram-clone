@@ -38,7 +38,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
     Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');
     Route::get('/instagram/explore/people/', [HomeController::class, 'showSuggestions'])->name('home.suggestions');
+
+    Route::post('/profile/{username}/follow', [ProfileController::class, 'follow'])->name('profile.follow');
+    Route::post('/profile/{username}/unfollow', [ProfileController::class, 'unfollow'])->name('profile.unfollow');
+    Route::get('/profile/{username}/followers', [ProfileController::class, 'followers'])->name('profile.followers');
+    Route::get('/profile/{username}/following', [ProfileController::class, 'following'])->name('profile.following');
+
 });
+
+    Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');
+
 
 require __DIR__.'/auth.php';
 
