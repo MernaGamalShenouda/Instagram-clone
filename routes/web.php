@@ -28,14 +28,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    
+    Route::get('/instagram', [HomeController::class, 'index'])->name('home.index');
+    Route::post('/instagram/like', [HomeController::class, 'createLike'])->name('home.create-like');
+    Route::post('/instagram/comment', [HomeController::class, 'createComment'])->name('home.create-comment');
+    Route::post('/instagram/bookmark', [HomeController::class, 'createBookmark'])->name('home.bookmark');
+
+    Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
+    Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');
+    Route::get('/instagram/explore/people/', [HomeController::class, 'showSuggestions'])->name('home.suggestions');
 });
 
 require __DIR__.'/auth.php';
 
-Route::get('/instagram', [HomeController::class, 'index'])->name('home.index');
-Route::post('/instagram/like', [HomeController::class, 'createLike'])->name('home.create-like');
-Route::post('/instagram/comment', [HomeController::class, 'createComment'])->name('home.create-comment');
-Route::post('/instagram/bookmark', [HomeController::class, 'createBookmark'])->name('home.bookmark');
-
-Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
-Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');

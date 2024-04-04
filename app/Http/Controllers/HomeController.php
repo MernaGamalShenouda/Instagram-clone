@@ -17,10 +17,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $user = Auth::user();
-        $user=User::find(2);
+        $user = Auth::user();
+        // $user=User::find(2);
 
-        $followeeIds = Follower::where('follower_id', 2)->pluck('followee_id');
+        $followeeIds = Follower::where('followee_id', $user->id)->pluck('follower_id');
 
         $posts = Post::whereIn('user_id', $followeeIds)
                     ->with('user', 'comments.user')
@@ -28,7 +28,14 @@ class HomeController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-        return view('home.index', ['user' => $user, 'posts' => $posts]);
+
+        $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
+        $suggestions = User::whereIn('id', $followedIds)
+                        ->where('id', '!=', $user->id)
+                        ->get();
+
+
+        return view('home.index', ['user' => $user, 'posts' => $posts, 'suggestions' => $suggestions]);
     }
 
     public function createComment(Request $request)
@@ -97,6 +104,15 @@ class HomeController extends Controller
 
         return redirect()->route('home.index');
 
+    }
+    public function showSuggestions(){
+        $user = Auth::user();
+        $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
+        $suggestions = User::whereIn('id', $followedIds)
+                        ->where('id', '!=', $user->id)
+                        ->get();
+
+        return view('home.suggestions', ['suggestions' => $suggestions]);
     }
 
 }
