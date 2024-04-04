@@ -64,31 +64,44 @@ class ProfileController extends Controller
     public function show($username)
     {
         $user = User::where('username', $username)->firstOrFail();
-        return view('profile.show', ['user'=>$user]);
-    }
+        $isFollowingBack = false;
 
+        if (auth()->check()) {
+            $authenticatedUser = auth()->user();
+            $isFollowingBack = $authenticatedUser->followers->contains($user);
+        }
+
+        // dd($isFollowingBack); 
+        return view('profile.show', ['user' => $user, 'isFollowingBack' => $isFollowingBack]);
+    }
 
     public function follow($username)
     {
         $userToFollow = User::where('username', $username)->firstOrFail();
-
+    
         if (auth()->user()->id === $userToFollow->id) {
             return redirect()->back()->with('error', 'You cannot follow yourself.');
         }
-
+    
         $isFollowing = Follower::where('follower_id', auth()->user()->id)
                             ->where('followee_id', $userToFollow->id)
                             ->exists();
-
+    
         if ($isFollowing) {
             return redirect()->back()->with('error', 'You are already following ' . $userToFollow->username);
         }
-
+    
+        $userToFollowBack = $userToFollow->followers->contains(auth()->user());
+    
         Follower::create([
             'follower_id' => auth()->user()->id,
             'followee_id' => $userToFollow->id,
         ]);
-
+    
+        if ($userToFollowBack) {
+            return redirect()->back()->with('success', 'You are now following ' . $userToFollow->username . ' back');
+        }
+    
         return redirect()->back()->with('success', 'You are now following ' . $userToFollow->username);
     }
 
@@ -114,7 +127,7 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'You have unfollowed ' . $userToUnfollow->username);
     }
 
-
+    //TO-DO: to be edited
     public function followers($username)
     {
         $user = User::where('username', $username)->firstOrFail();

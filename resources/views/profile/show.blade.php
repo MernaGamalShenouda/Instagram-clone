@@ -98,13 +98,21 @@
                         <button class="follow-button">Unfollow</button>
                     </form>
                 @else
-                    <form action="{{ route('profile.follow', $user->username) }}" method="POST">
-                        @csrf
-                        <button class="follow-button">Follow</button>
-                    </form>
+                    @if ($isFollowingBack)
+                        <form action="{{ route('profile.follow', $user->username) }}" method="POST">
+                            @csrf
+                            <button class="follow-button">Follow back</button>
+                        </form>
+                    @else
+                        <form action="{{ route('profile.follow', $user->username) }}" method="POST">
+                            @csrf
+                            <button class="follow-button">Follow</button>
+                        </form>
+                    @endif
                 @endif
             @endif
         </div>
+        <!-- To do -->
         <!-- <div class="tabs-container">
             <div class="tabs">
                 <div class="tab active">Posts</div>
