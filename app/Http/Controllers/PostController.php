@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Carbon\Carbon;
-use stdClass;
 use Illuminate\Http\Request;
 use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -44,13 +44,16 @@ class PostController extends Controller
         $post->user_id = auth()->id();
         $post->published_at = Carbon::now();
 
+        $tags = [];
+        preg_match_all('/#(\w+)/', $validatedData['content'], $tags);
+
         $imagePublicIds = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 if ($image->isValid()) {
                     // $imagePath = $image->store('images/posts', ['disk' => 'public']);
                     $result = Cloudinary::upload($image->getRealPath(), [
-                        'folder' => 'Posts', 
+                        'folder' => 'Posts',
                     ]);
                     $imagePublicIds[] = $result->getPublicId();
                 }
@@ -61,10 +64,24 @@ class PostController extends Controller
 
         $post->save();
 
+        foreach ($tags[1] as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $tag->posts()->attach($post->id);
+        }
+
         return redirect()->route('posts.view', ['post_id' => $post->id]);
     }
 
-   
+    public function suggestTags(Request $request)
+    {
+        $tag = $request->input('tag');
+
+        $tags = Tag::where('name', 'like', $tag . '%')->limit(5)->get();
+
+        return response()->json($tags);
+    }
+
+
 
     /**
      * Store a newly created comment in storage.

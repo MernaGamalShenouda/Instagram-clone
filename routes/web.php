@@ -40,4 +40,6 @@ Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('post
 Route::middleware(['auth'])->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/tags/suggest', [PostController::class, 'suggestTags'])->name('tags.suggest');
+
 });
