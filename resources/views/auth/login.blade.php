@@ -1,6 +1,6 @@
 
 <x-guest-layout>
-<div class="flex justify-center">
+<div class="flex min-h-screen sm:justify-center justify-center">
     <div class="w-1/2  relative">
 
         <img src="{{ asset('images/logo/phones.png') }}" style="height:581px; margin-top:80px; ">
@@ -28,7 +28,7 @@
             
             
             <div>
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="Phone number, username, or email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="Phone number, username, or email" :value="old('email')" required autofocus  />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
             
@@ -39,7 +39,7 @@
                 type="password"
                 name="password"
                 placeholder="Password"
-                required autocomplete="current-password" />
+                required />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
             

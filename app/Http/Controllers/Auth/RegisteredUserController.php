@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\VerifyEmail;
 
 class RegisteredUserController extends Controller
 {
@@ -56,11 +58,24 @@ class RegisteredUserController extends Controller
 
         ]);
 
+        $user->notify(new VerifyEmail($user));
+
         event(new Registered($user));
+
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $this->guard()->login($user);
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }
 
