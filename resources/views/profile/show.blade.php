@@ -16,6 +16,7 @@
             max-width: 960px;
             margin: 0 auto;
             padding: 20px;
+            margin-right: 130px; 
         }
         .profile-header {
             display: flex;
@@ -52,6 +53,19 @@
             background-color: #ccc;
             border: none;
             cursor: pointer;
+        }
+        .post-card {
+            height: 300px; 
+            overflow: hidden; 
+        }
+        .post-card img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 0; 
+        }
+        .post-grid .col-md-4 {
+            padding: 5px; 
         }
     </style>
 </head>
@@ -97,11 +111,15 @@
                 <div class="tab">Saved</div>
             </div>
         </div> -->
-        <div class="post-grid">
+        <div class="row post-grid">
             @foreach($user->posts as $post)
+            <div class="col-md-4 mb-1">
                 <a href="/instagram/p/{{ $post->id }}">
-                    <img src="{{ $post->image }}" alt="Post Image">
+                    <div class="card post-card">
+                        <img class="card-img-top" src="{{ $post->images }}" alt="Post Image">
+                    </div>
                 </a>
+            </div>
             @endforeach
         </div>
     </div>
