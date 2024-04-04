@@ -35,3 +35,9 @@ Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('pos
 
 Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
 Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+});
