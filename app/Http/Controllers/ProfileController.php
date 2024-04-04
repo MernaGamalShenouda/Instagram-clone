@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
+use App\Models\Follower;
 
 class ProfileController extends Controller
 {
@@ -57,4 +59,76 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+
+    public function show($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        return view('profile.show', ['user'=>$user]);
+    }
+
+
+    public function follow($username)
+    {
+        $userToFollow = User::where('username', $username)->firstOrFail();
+
+        if (auth()->user()->id === $userToFollow->id) {
+            return redirect()->back()->with('error', 'You cannot follow yourself.');
+        }
+
+        $isFollowing = Follower::where('follower_id', auth()->user()->id)
+                            ->where('followee_id', $userToFollow->id)
+                            ->exists();
+
+        if ($isFollowing) {
+            return redirect()->back()->with('error', 'You are already following ' . $userToFollow->username);
+        }
+
+        Follower::create([
+            'follower_id' => auth()->user()->id,
+            'followee_id' => $userToFollow->id,
+        ]);
+
+        return redirect()->back()->with('success', 'You are now following ' . $userToFollow->username);
+    }
+
+
+    public function unfollow($username)
+    {
+        $userToUnfollow = User::where('username', $username)->firstOrFail();
+
+        if (auth()->user()->id === $userToUnfollow->id) {
+            return redirect()->back()->with('error', 'You cannot unfollow yourself.');
+        }
+
+        $follower = Follower::where('follower_id', auth()->user()->id)
+                            ->where('followee_id', $userToUnfollow->id)
+                            ->first();
+
+        if (!$follower) {
+            return redirect()->back()->with('error', 'You are not following ' . $userToUnfollow->username);
+        }
+
+        $follower->delete();
+
+        return redirect()->back()->with('success', 'You have unfollowed ' . $userToUnfollow->username);
+    }
+
+
+    public function followers($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        $followers = $user->followers()->paginate(10);
+        return view('profiles.followers', compact('followers'));
+    }
+
+
+
+    public function following($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        $following = $user->following()->paginate(10);
+        return view('profiles.following', compact('following'));
+    }
+
 }
