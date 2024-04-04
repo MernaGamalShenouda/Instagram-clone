@@ -91,4 +91,14 @@ class User extends Authenticatable
             return response()->json(['error' => 'Error updating user avatar: ' . $e->getMessage()], 500);
         }
     }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followee_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followee_id', 'follower_id')->withTimestamps();
+    }
 }
