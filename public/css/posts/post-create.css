@@ -8,6 +8,7 @@
 .card {
     height: 80vh !important;
     border-radius: 11px !important;
+    position: relative;
 }
 
 .create-post-text {
@@ -18,17 +19,101 @@
     opacity: 0.15;
 }
 
-.digital-asset-image{
+.digital-asset-image {
     width: 15%;
 }
 
-.photos-text{
+.photos-text {
     font-size: 18px;
 }
 
-.btn-primary{
+.btn-primary {
     font-size: 13px !important;
     background-color: #0095f6 !important;
     border: none !important;
     border-radius: 8px !important;
+}
+
+.arrow-img {
+    position: absolute;
+    width: 30px;
+    padding: 5px;
+    left: 10px;
+}
+
+#closeButton,#shareButton {
+    position: absolute;
+    right: 10px;
+}
+#closeButton:focus,#closeButton:active {
+    border: none;
+    box-shadow: none;
+}
+
+.post-userInfo-section {
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    height: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.post-userInfo-content {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-image {
+    width: 55%;
+    height: auto;
+}
+
+.username {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    margin-top: none !important;
+    margin-bottom: 0;
+}
+
+.textareaDropdown {
+    position: relative;
+}
+
+.transparent-50 {
+    font-size: 15px;
+}
+
+#content::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 15px;
+}
+
+#content:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.dropdown {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+}
+
+.dropdown .dropdown-menu {
+    width: 100%;
+}
+.dropdown .dropdown-menu .dropdown-item {
+    width: 100%;
+}
+
+#dropdownStickers:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.emoji:hover,
+.emoji:focus,
+.emoji::selection {
+    background-color: transparent;
 }
