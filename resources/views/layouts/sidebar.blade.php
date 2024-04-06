@@ -10,21 +10,12 @@
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     
+
     <style>
         body {
             background-color: #f0f0f0;
         }
-        .sidebar {
-            background-color: white;
-            color: black;
-            height: 100vh;
-            position: fixed;
-            width: 245px;
-            top: 0;
-            left: 0;
-            padding-top: 35px;
-            padding-left: 5px;
-        }
+
         a > img, .nav-link > span {
             vertical-align: middle;
             margin-right: 10px;
@@ -39,7 +30,7 @@
         .sidebar .nav-link {
             color: black;
             font-size: 1.1rem;
-            padding: 14px 5px;
+            padding: 14px 1px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .sidebar .bi {
@@ -47,8 +38,8 @@
         }
         .sidebar .nav-link:hover {
             background-color: rgba(0, 0, 0, 0.1); 
-            border-radius: 15px; 
-            width: 210px;
+            border-radius: 10px; 
+            width: 200px;
         }
         .dropdown-menu {
             border: none;
@@ -76,12 +67,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 col-lg-2 sidebar">
-            <div class="d-flex flex-column align-items-start px-3 pt-2">
+        <div class="col-md-2 col-lg-2 ps-0  sidebar border-end ms-3">
+            <div class="d-flex flex-column align-items-start px-3  mt-5 ps-1">
                 <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
                 
-                <ul class="nav flex-column mb-0 ms-0">
+                <ul class="nav flex-column mb-0">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <img src="../assets/home.png" alt="">
@@ -89,9 +79,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link" id="searchLink">
                             <i class="bi bi-search"></i> Search
                         </a>
+                        <ul class="dropdown-menu mt-2" aria-labelledby="searchLink" id="searchDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Search Users</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-hash"></i> Search Tags</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -112,10 +106,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link" id="notificationLink">
                             <img src="../assets/heart.png" alt="">
                             <span>Notifications</span>
                         </a>
+                        <ul class="dropdown-menu mt-2" aria-labelledby="notificationLink" id="notificationDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-heart"></i> Likes</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-chat-left-dots"></i> Comments</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -144,17 +142,16 @@
                 </ul>
             </div>
         </div>
-        
+  
         <!-- Content -->
-        <div class="col-md-9">
-            <div class="container mt-5">
+        <div class="col-md-7 ms-5">
+            <div class="container mt-4 ms-5">
                @yield('content')
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap 5.3.0 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

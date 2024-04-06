@@ -13,6 +13,7 @@ class Post extends Model
     protected $fillable = [
         'content',
         'images'
+
     ];
 
     public function user()
@@ -28,5 +29,10 @@ class Post extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }
