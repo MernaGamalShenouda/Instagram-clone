@@ -38,9 +38,10 @@
     flex-direction: column;
 }
 .card {
-    margin: 2em;
-    border-radius: 1em;
-    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    margin: 1em;
+    border: none;
+    /* border-radius: 1em; */
+    /* box-shadow: 0 0 1em rgba(0, 0, 0, 0.1); */
     transition: box-shadow 0.3s ease;
 }
 .fa-heart {

@@ -20,7 +20,7 @@ class HomeController extends Controller
         $user = Auth::user();
         // $user=User::find(2);
 
-        $followeeIds = Follower::where('followee_id', $user->id)->pluck('follower_id');
+        $followeeIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
 
         $posts = Post::whereIn('user_id', $followeeIds)
                     ->with('user', 'comments.user')
@@ -43,7 +43,7 @@ class HomeController extends Controller
         $this->validate($request, [
             'content' => 'required',
             'post_id' => 'required',
-            'post_id' => 'required',
+            'user_id' => 'required',
         ]);
 
         Comment::create([

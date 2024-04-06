@@ -13,6 +13,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/home/home.css') }}">
 </head>
 
@@ -120,7 +121,7 @@
                                     <br />
                                     <small class="text-muted">
                                         <span class="mx-1"><b>{{ $post->user->username }} </b></span>
-                                        <span>{{ substr($post->content, 0, 20) }}..</span>
+                                        <span>{{ strlen($post->content) > 20 ? substr($post->content, 0, 20) . '...' : $post->content }}</span>
                                         <div class="comments">
                                             <div class="comment">
                                                 <a href="#" data-toggle="modal" data-target="#exampleModal">
@@ -147,16 +148,14 @@
                                                         <div class="col-auto">
                                                             <button type="submit"
                                                                 class="btn btn-primary btn-sm add-comment"
-                                                                id="postButton" style="display: none;">
-                                                                Post
+                                                                id="postButton" style="display: none;">Post</button>
+                                                            <button class="trigger"><i
+                                                                    class="fa-regular fa-face-grin"></i>
                                                             </button>
-                                                            <i class="fa-regular fa-face-grin"></i>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +164,7 @@
                         </div>
                     </div>
                 @endforeach
-                a
+                
             </div>
         </div>
         <div class='col-3 '>
@@ -235,8 +234,10 @@
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4/dist/emoji-button.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 <script src="{{ asset('js/home/home.js') }}"></script>
+<script src="{{ asset('js/home/emojy.js') }}"></script>
 </body>
 
 </html>
