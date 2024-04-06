@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>View Post - Instagram</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Icons Library -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+@extends('layouts.main')
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+@section('title','Profile')
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link href="{{ asset('css/posts/post_view.css') }}" rel="stylesheet">
-</head>
-
-<body>
-    <!-- Button to trigger modal -->
-    <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#postModal">
-        View Post
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade border-0" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
+@section('profile_content')
                             <div class="card">
                                 <div class="row g-0 card-outer-body">
                                     <div class="col-md-6 d-flex align-items-center postImg-section">
@@ -41,7 +11,7 @@
                                             data-bs-interval="false">
                                             <div class="carousel-inner">
                                                 @php
-                                                    $images = json_decode($post->images);
+                                                    $images = json_decode(json_decode($post->images));
                                                 @endphp
                                                 @foreach ($images as $index => $image)
                                                     <div class="carousel-item w-100 h-100 {{ $index === 0 ? 'active' : '' }}">
@@ -89,9 +59,9 @@
                                             <div class="p-0 m-0 col-md-12 post-userInfo-section">
                                                 <div class="post-userInfo-content">
                                                     <div>
-                                                        <p class=""><strong
-                                                                class="me-1">{{ $post->user->username }}:</strong>
-                                                            {{ $post->content }}</p>
+                                                        <p class=""><strong class="me-1">{{ $post->user->username }}:</strong>
+                                                            {!! preg_replace('/#(\w+)/', '<a href="javascript:void(0);" onclick="redirectToTagView(\'$1\')">#$1</a>', $post->content) !!}
+                                                         </p>
                                                     </div>
                                                     <p></p>
                                                 </div>
@@ -110,10 +80,15 @@
                                             <!-- Div containing the icons -->
                                             <div class="d-flex align-items-center justify-content-between w-100">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- Heart icon (not filled) -->
-                                                    <button type="button" class="btn btn-link btn-lg btn-black px-0">
-                                                        <i class="far fa-heart"></i>
-                                                    </button>
+                                                    <!-- Heart icon -->
+                                                    <form id="like-form" action="{{ route('post.create-like') }}" method="post" class="form form-inline">
+                                                        @csrf
+                                                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                                        <button type="submit" class="btn btn-lg like-button {{ $post->isLiked($user->id) ? 'liked' : '' }}">
+                                                            <i class="{{ $post->isLiked($user->id) ? 'fas' : 'far black-heart' }} fa-heart"></i>
+                                                        </button>
+                                                    </form>
                                                     <!-- Comment icon -->
                                                     <button type="button" class="btn btn-link btn-lg btn-black">
                                                         <i class="far fa-comment"></i>
@@ -122,15 +97,24 @@
 
                                                 <!-- Bookmark icon -->
                                                 <div>
-                                                    <button type="button" class="btn btn-link btn-lg btn-black px-0">
-                                                        <i class="far fa-bookmark"></i>
-                                                    </button>
+                                                    <form id="bookmark-form" action="{{ route('post.bookmark') }}" method="post"
+                                                        class="form form-inline">
+                                                        @csrf
+                                                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                                                        <button type="submit" class="btn btn-lg">
+                                                            <i
+                                                                class="{{ $post->isBookmarked($user->id) ? 'fas' : 'far' }} fa-bookmark"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
 
                                             <!-- Div for Comments and Likes Info -->
-                                            <div class='w-100'>
-                                                Comments and Likes Info
+                                            <div id="post-info" class='w-100'>
+                                                <strong> <span class='Likes'>{{$post->likes_count}}</span> Likes </strong>
+                                                <strong> <span class='Comments'>{{$post->comments_count}}</span> Comments </strong>
                                             </div>
                                         </div>
 
