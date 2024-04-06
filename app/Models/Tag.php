@@ -18,4 +18,10 @@ class Tag extends Model
         return $this->belongsToMany(Post::class);
     }
 
+
+    public static function findByName(string $name)
+{
+    return static::where('name', $name)->first();
+}
+
 }

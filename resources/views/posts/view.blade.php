@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>View Post - Instagram</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Icons Library -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-     <link href="{{ asset('css/posts/post_view.css') }}" rel="stylesheet">
+@extends('layouts.main')
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-</head>
+@section('title','Profile')
 
-<body>
-    <!-- Button to trigger modal -->
-    <!-- <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#postModal">
-        View Post
-    </button> -->
-
-    <!-- Modal -->
-    <!-- <div class="modal fade border-0" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row justify-content-center"> -->
-                        <div class="col-lg-10">
+@section('profile_content')
                             <div class="card">
                                 <div class="row g-0 card-outer-body">
                                     <div class="col-md-6 d-flex align-items-center postImg-section">
@@ -179,122 +151,6 @@
                                     </div>
                                 </div>
                             </div>
+@endsection
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
-    var comments = {!! json_encode($comments) !!};
-
-    function getCurrentDateTime() {
-        return new Date().toISOString();
-    }
-
-    function submitForm(event) {
-        event.preventDefault(); 
-        var formData = new FormData(event.target);
-        
-        formData.set('updated_at', getCurrentDateTime());
-        formData.set('created_at', getCurrentDateTime());
-        
-        // Perform AJAX request
-        fetch(event.target.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                var commentContent = event.target.querySelector('[name="content"]').value;
-                var newComment = { content: commentContent };
-
-                fetchComments(newComment);
-                event.target.querySelector('[name="content"]').value = ''; // Clear the input value
-            } else {
-                console.error('Form submission failed');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    function fetchComments(newComment) {
-        var commentsContainer = document.getElementById('commentsContainer');
-        var commentElement = document.createElement('p');
-        var currentComments = parseInt($('.Comments').text());
-        $('.Comments').text(currentComments+1);
-
-        commentElement.innerHTML = `<strong>{{ $user->username }}:</strong> ${newComment.content}`;
-        commentsContainer.appendChild(commentElement);
-    }
-
-    document.getElementById('commentForm').addEventListener('submit', submitForm);
-
-    $(document).ready(function() {
-        $('#like-form').submit(function(event) {
-            // Prevent the form from submitting normally
-            event.preventDefault();
-
-            // Send AJAX request
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    var likeButton = $('#like-form').find('.like-button');
-                    likeButton.toggleClass('liked');
-                    likeButton.find('.fa-heart').toggleClass('fas black-heart').toggleClass('far');
-
-                    var currentLikes = parseInt($('.Likes').text());
-                    if (likeButton.hasClass('liked')) {
-                        $('.Likes').text(currentLikes+1);
-                    } else {
-                        $('.Likes').text(currentLikes-1);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
-
-    $(document).ready(function() {
-        // Bookmark form submission
-        $('#bookmark-form').submit(function(event) {
-            // Prevent the form from submitting normally
-            event.preventDefault();
-
-            // Send AJAX request
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    var bookmarkButton = $('#bookmark-form').find('.btn-lg');
-                    bookmarkButton.find('.fa-bookmark').toggleClass('fas far');
-
-                    // Optionally, you can update UI or perform other actions upon success
-                    console.log('Bookmark action success');
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
-
-    function redirectToTagView(tag) {
-        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
-        url = url.replace(':tag_id', tag);
-        window.location.href = url;
-    }
-
-</script>
-
-</body>
-
-</html>

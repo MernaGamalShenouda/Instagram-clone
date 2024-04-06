@@ -13,6 +13,7 @@ class Post extends Model
     protected $fillable = [
         'content',
         'images'
+
     ];
 
     public function user()
@@ -42,4 +43,9 @@ class Post extends Model
         return $this->bookmarks()->where('user_id', $userId)->exists();
     }
 
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
