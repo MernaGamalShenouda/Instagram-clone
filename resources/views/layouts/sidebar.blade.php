@@ -9,7 +9,8 @@
 
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    
+
+    <link href="{{ asset('css/profile_view.css') }}" rel="stylesheet"> 
 
     <style>
         body {
@@ -143,7 +144,7 @@
             </div>
         </div>
   
-        <!-- Content -->
+        <!-- Content Adel-->
         <div class="col-md-7 ms-5">
             <div class="container mt-4 ms-5">
                @yield('content')
@@ -153,6 +154,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@yield('script')
 
 </body>
 </html>
