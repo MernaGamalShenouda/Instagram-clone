@@ -71,7 +71,6 @@ class ProfileController extends Controller
             $isFollowingBack = $authenticatedUser->followers->contains($user);
         }
 
-        // dd($isFollowingBack); 
         return view('profile.show', ['user' => $user, 'isFollowingBack' => $isFollowingBack]);
     }
 
@@ -127,12 +126,11 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'You have unfollowed ' . $userToUnfollow->username);
     }
 
-    //TO-DO: to be edited
     public function followers($username)
     {
         $user = User::where('username', $username)->firstOrFail();
         $followers = $user->followers()->paginate(10);
-        return view('profiles.followers', compact('followers'));
+        return view('profile.followers', ['followers' => $followers]);
     }
 
 
@@ -141,7 +139,7 @@ class ProfileController extends Controller
     {
         $user = User::where('username', $username)->firstOrFail();
         $following = $user->following()->paginate(10);
-        return view('profiles.following', compact('following'));
+        return view('profile.following', ['following' => $following]);
     }
 
 }
