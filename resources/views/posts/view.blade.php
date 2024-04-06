@@ -3,11 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 24b42509a5d73cbb92e2a84b7a800db3bd2861dd
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>View Post - Instagram</title>
     <!-- Bootstrap CSS -->
@@ -15,42 +10,27 @@
     <!-- Icons Library -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-<<<<<<< HEAD
-=======
-    <title>View Post - Instagram</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-     <!-- Custom CSS -->
->>>>>>> c70bb595ba263d60e37211ff79133f268b2f92c8
      <link href="{{ asset('css/posts/post_view.css') }}" rel="stylesheet">
-=======
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link href="{{ asset('css/posts/post_view.css') }}" rel="stylesheet">
->>>>>>> 24b42509a5d73cbb92e2a84b7a800db3bd2861dd
 </head>
 
 <body>
     <!-- Button to trigger modal -->
-    <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#postModal">
+    <!-- <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#postModal">
         View Post
-    </button>
+    </button> -->
 
     <!-- Modal -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 24b42509a5d73cbb92e2a84b7a800db3bd2861dd
-    <div class="modal fade border-0" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade border-0" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center"> -->
                         <div class="col-lg-10">
                             <div class="card">
                                 <div class="row g-0 card-outer-body">
@@ -59,7 +39,7 @@
                                             data-bs-interval="false">
                                             <div class="carousel-inner">
                                                 @php
-                                                    $images = json_decode($post->images);
+                                                    $images = json_decode(json_decode($post->images));
                                                 @endphp
                                                 @foreach ($images as $index => $image)
                                                     <div class="carousel-item w-100 h-100 {{ $index === 0 ? 'active' : '' }}">
@@ -107,9 +87,9 @@
                                             <div class="p-0 m-0 col-md-12 post-userInfo-section">
                                                 <div class="post-userInfo-content">
                                                     <div>
-                                                        <p class=""><strong
-                                                                class="me-1">{{ $post->user->username }}:</strong>
-                                                            {{ $post->content }}</p>
+                                                        <p class=""><strong class="me-1">{{ $post->user->username }}:</strong>
+                                                            {!! preg_replace('/#(\w+)/', '<a href="javascript:void(0);" onclick="redirectToTagView(\'$1\')">#$1</a>', $post->content) !!}
+                                                         </p>
                                                     </div>
                                                     <p></p>
                                                 </div>
@@ -128,10 +108,15 @@
                                             <!-- Div containing the icons -->
                                             <div class="d-flex align-items-center justify-content-between w-100">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- Heart icon (not filled) -->
-                                                    <button type="button" class="btn btn-link btn-lg btn-black px-0">
-                                                        <i class="far fa-heart"></i>
-                                                    </button>
+                                                    <!-- Heart icon -->
+                                                    <form id="like-form" action="{{ route('post.create-like') }}" method="post" class="form form-inline">
+                                                        @csrf
+                                                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                                        <button type="submit" class="btn btn-lg like-button {{ $post->isLiked($user->id) ? 'liked' : '' }}">
+                                                            <i class="{{ $post->isLiked($user->id) ? 'fas' : 'far black-heart' }} fa-heart"></i>
+                                                        </button>
+                                                    </form>
                                                     <!-- Comment icon -->
                                                     <button type="button" class="btn btn-link btn-lg btn-black">
                                                         <i class="far fa-comment"></i>
@@ -140,15 +125,24 @@
 
                                                 <!-- Bookmark icon -->
                                                 <div>
-                                                    <button type="button" class="btn btn-link btn-lg btn-black px-0">
-                                                        <i class="far fa-bookmark"></i>
-                                                    </button>
+                                                    <form id="bookmark-form" action="{{ route('post.bookmark') }}" method="post"
+                                                        class="form form-inline">
+                                                        @csrf
+                                                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                                                        <button type="submit" class="btn btn-lg">
+                                                            <i
+                                                                class="{{ $post->isBookmarked($user->id) ? 'fas' : 'far' }} fa-bookmark"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
 
                                             <!-- Div for Comments and Likes Info -->
-                                            <div class='w-100'>
-                                                Comments and Likes Info
+                                            <div id="post-info" class='w-100'>
+                                                <strong> <span class='Likes'>{{$post->likes_count}}</span> Likes </strong>
+                                                <strong> <span class='Comments'>{{$post->comments_count}}</span> Comments </strong>
                                             </div>
                                         </div>
 
@@ -185,49 +179,12 @@
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
-=======
-    <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="postModalLabel">Show Post</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            @if($post->image)
-                                <div class="post-image">
-                                    <img src="{{ asset($post->image) }}" class="img-fluid rounded" alt="Post Image">
-                                </div>
-                            @endif
-                        </div>
-                        <div class="col-lg-4">
-                            <p><strong>ID:</strong> {{ $post->id }}</p>
-                            <p><strong>Body:</strong> {{ $post->body }}</p>
-                            <p><strong>User:</strong> {{ $post->user_id }}</p>
-                            <p><strong>Likes:</strong> {{ $post->likes }}</p>
-                            <p><strong>Comments:</strong> {{ $post->comments }}</p>
-                            <p><strong>Published At:</strong> {{ $post->published_at }}</p>
->>>>>>> c70bb595ba263d60e37211ff79133f268b2f92c8
-=======
->>>>>>> 24b42509a5d73cbb92e2a84b7a800db3bd2861dd
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-    </div>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
     var comments = {!! json_encode($comments) !!};
-    // console.log('comments',comments);
 
     function getCurrentDateTime() {
         return new Date().toISOString();
@@ -250,8 +207,6 @@
         })
         .then(response => {
             if (response.ok) {
-                // console.log('Form submitted successfully');
-
                 var commentContent = event.target.querySelector('[name="content"]').value;
                 var newComment = { content: commentContent };
 
@@ -269,83 +224,77 @@
     function fetchComments(newComment) {
         var commentsContainer = document.getElementById('commentsContainer');
         var commentElement = document.createElement('p');
-        commentElement.innerHTML = `<strong>Comment:</strong> ${newComment.content}`;
+        var currentComments = parseInt($('.Comments').text());
+        $('.Comments').text(currentComments+1);
+
+        commentElement.innerHTML = `<strong>{{ $user->username }}:</strong> ${newComment.content}`;
         commentsContainer.appendChild(commentElement);
     }
 
     document.getElementById('commentForm').addEventListener('submit', submitForm);
+
+    $(document).ready(function() {
+        $('#like-form').submit(function(event) {
+            // Prevent the form from submitting normally
+            event.preventDefault();
+
+            // Send AJAX request
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    var likeButton = $('#like-form').find('.like-button');
+                    likeButton.toggleClass('liked');
+                    likeButton.find('.fa-heart').toggleClass('fas black-heart').toggleClass('far');
+
+                    var currentLikes = parseInt($('.Likes').text());
+                    if (likeButton.hasClass('liked')) {
+                        $('.Likes').text(currentLikes+1);
+                    } else {
+                        $('.Likes').text(currentLikes-1);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        // Bookmark form submission
+        $('#bookmark-form').submit(function(event) {
+            // Prevent the form from submitting normally
+            event.preventDefault();
+
+            // Send AJAX request
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    var bookmarkButton = $('#bookmark-form').find('.btn-lg');
+                    bookmarkButton.find('.fa-bookmark').toggleClass('fas far');
+
+                    // Optionally, you can update UI or perform other actions upon success
+                    console.log('Bookmark action success');
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+    function redirectToTagView(tag) {
+        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
+        url = url.replace(':tag_id', tag);
+        window.location.href = url;
+    }
+
 </script>
 
-=======
-    <!-- Bootstrap JS (optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
->>>>>>> c70bb595ba263d60e37211ff79133f268b2f92c8
-=======
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        var mySwiper = new Swiper('.swiper-container', {
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-            },
-        });
-
-        var comments = {!! json_encode($comments) !!};
-        // console.log('comments',comments);
-
-        function getCurrentDateTime() {
-            return new Date().toISOString();
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-            var formData = new FormData(event.target);
-
-            formData.set('updated_at', getCurrentDateTime());
-            formData.set('created_at', getCurrentDateTime());
-
-            // Perform AJAX request
-            fetch(event.target.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // console.log('Form submitted successfully');
-
-                        var commentContent = event.target.querySelector('[name="content"]').value;
-                        var username = event.target.querySelector('[name="username"]').value;
-                        var newComment = {
-                            content: commentContent,
-                            username: username
-                        };
-
-                        fetchComments(newComment);
-                        event.target.querySelector('[name="content"]').value = ''; // Clear the input value
-                    } else {
-                        console.error('Form submission failed');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-        function fetchComments(newComment) {
-            var commentsContainer = document.getElementById('commentsContainer');
-            var commentElement = document.createElement('p');
-            commentElement.innerHTML = `<strong class="me-1">${newComment.username}:</strong> ${newComment.content}`;
-            commentsContainer.appendChild(commentElement);
-        }
-
-        document.getElementById('commentForm').addEventListener('submit', submitForm);
-    </script>
-
->>>>>>> 24b42509a5d73cbb92e2a84b7a800db3bd2861dd
 </body>
 
 </html>

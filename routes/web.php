@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/instagram/p/{post_id}', [PostController::class, 'view'])->name('posts.view')->where('id', '[0-9]+');
     Route::post('/instagram/p', [PostController::class, 'storeComment'])->name('posts.storeComment');
+    Route::post('/instagram/p/like', [PostController::class, 'createLike'])->name('post.create-like');
+    Route::post('/instagram/p/bookmark', [PostController::class, 'createBookmark'])->name('post.bookmark');
     Route::get('/instagram/explore/people/', [HomeController::class, 'showSuggestions'])->name('home.suggestions');
 
     Route::post('/profile/{username}/follow', [ProfileController::class, 'follow'])->name('profile.follow');
@@ -46,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/tags/suggest', [PostController::class, 'suggestTags'])->name('tags.suggest');
+
+    Route::get('/tags/{tag_id}', [TagController::class, 'view'])->name('tags.view');
+    Route::get('/tags/{tag_id}', [TagController::class, 'view'])->name('tags.view');
 });
 
     Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');

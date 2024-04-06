@@ -37,7 +37,8 @@
 }
 
 .card-outer-body{
-    height: 80vh;
+    /* height: 80vh; */
+    height: 100vh;
 }
 
 .card-body{
@@ -111,4 +112,20 @@
     align-items: center;
     margin-top: none !important;
     margin-bottom: 0;
+}
+
+.like-button{
+    padding: 0;
+}
+
+.fa-heart {
+    color: red;
+}
+
+.black-heart {
+    color: black;
+}
+
+.liked {
+    color: red; 
 }

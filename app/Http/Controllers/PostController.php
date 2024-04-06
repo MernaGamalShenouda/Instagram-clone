@@ -7,6 +7,9 @@ use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Like;
+use App\Models\SavedPost;
+use App\Models\Post_Tag;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
@@ -110,6 +113,55 @@ class PostController extends Controller
         return redirect()->route('posts.view', ['post_id' => $comment->post_id]);
     }
 
+    public function createLike(Request $request){
+        $this->validate($request, [
+            'post_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $existingLike = Like::where('post_id', $request->input('post_id'))
+                             ->where('user_id', $request->input('user_id'))
+                             ->first();
+
+        if ($existingLike) {
+            $existingLike->delete();
+        } else {
+            Like::create([
+                'post_id' => $request->input('post_id'),
+                'user_id' => $request->input('user_id'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('posts.view', ['post_id' => $request->input('post_id')]);
+    }
+
+    public function createBookmark(Request $request){
+        $this->validate($request, [
+            'post_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $existingBookmark = SavedPost::where('post_id', $request->input('post_id'))
+                             ->where('user_id', $request->input('user_id'))
+                             ->first();
+
+        if ($existingBookmark) {
+            $existingBookmark->delete();
+        } else {
+            SavedPost::create([
+                'post_id' => $request->input('post_id'),
+                'user_id' => $request->input('user_id'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('posts.view', ['post_id' => $request->input('post_id')]);
+    }
+
+
 
     /**
      * Display the specified resource.
@@ -124,16 +176,16 @@ class PostController extends Controller
      */
     public function view(string $id)
     {
-        $post = \App\Models\Post::with('user')->find($id);
-        // $post->images = 'images/posts/sky.jpg';
-        $comments = \App\Models\Comment::where('post_id', $id)->with('user')->get();
+        $post = \App\Models\Post::with('user')
+        ->withCount('likes', 'comments')
+        ->find($id);       
 
+        $comments = \App\Models\Comment::where('post_id', $id)->with('user')->get();
 
         $user = User::find($post->user_id);
         $user->updateAvatar($user->id);
 
         $userSigned = User::find(auth()->id());
-        // dd($post->images);
 
         return view('posts.view', ['post' => $post, 'comments' => $comments, 'user' => $userSigned]);
     }
