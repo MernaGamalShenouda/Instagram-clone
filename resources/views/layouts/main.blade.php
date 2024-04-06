@@ -26,7 +26,7 @@
                                 <div class="card post-card">
                                     <!-- <img class="card-img-top" src="{{ $post->images }}" alt="Post Image"> -->
                                     @php
-                                        $images = json_decode(json_decode($post->images));
+                                        $images = json_decode($post->images);
                                     @endphp
                                    @foreach ($images as $index => $image)
                                         @if ($index === 0)
