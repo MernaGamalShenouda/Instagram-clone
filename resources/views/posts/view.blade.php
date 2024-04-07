@@ -152,40 +152,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                    @if (count($images) > 1)
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                        <ol class="carousel-indicators">
-                            @foreach ($images as $index => $image)
-                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}"
-                                    class="{{ $index === 0 ? 'active' : '' }}"></li>
-                            @endforeach
-                        </ol>
-                    @endif
-                </div>
-            </div>
-
-            <div class="col-md-6 d-flex flex-column justify-content-between align-items-start">
-                <!-- User Info  -->
-                <div class="border col-md-12 post-userInfo-section">
-                    <div class="post-userInfo-content">
-                        <img src="{{ $post->user->avatar }}" class="img-fluid rounded avatar-image" alt="User Avatar">
-                        <div>
-                            <p class="username"><strong>{{ $post->user->username }}</strong></p>
-                        </div>
-                    </div>
-                </div>
-
+                        @endsection
 @section('post_script')
 <script>
     var comments = {!! json_encode($comments) !!};
@@ -291,11 +258,7 @@
         });
     });
 
-    function redirectToTagView(tag) {
-        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
-        url = url.replace(':tag_id', tag);
-        window.location.href = url;
-    }
+    
 
 </script>
 
