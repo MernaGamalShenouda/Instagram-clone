@@ -114,5 +114,15 @@ class HomeController extends Controller
 
         return view('home.suggestions', ['suggestions' => $suggestions]);
     }
+    public function search(Request $request){
+        $query = $request->input('query');
+
+        $results = User::where('username', 'like', '%' . $query . '%')
+                        ->orWhere('full_name', 'like', '%' . $query . '%')
+                        ->get();
+
+        return redirect()->route('home.index', ['results' => $results]);
+    }
+
 
 }

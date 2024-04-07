@@ -21,69 +21,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('css/posts/post_view.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/home/sidebar.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    <style>
-        body {
-            background-color: #f0f0f0;
-        }
-
-        a>img,
-        .nav-link>span {
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-
-        a>img {
-            width: 20px;
-            height: 20px;
-        }
-
-        img {
-            cursor: pointer;
-        }
-
-        .sidebar .nav-link {
-            color: black;
-            font-size: 1.1rem;
-            padding: 14px 1px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .sidebar .bi {
-            margin-right: 14px;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            width: 200px;
-        }
-
-        .dropdown-menu {
-            border: none;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transform-origin: top;
-            transform: translateY(-100%);
-            width: 250px;
-        }
-
-        .dropdown-menu .dropdown-item {
-            color: #000;
-            font-size: 1rem;
-            padding: 14px 16px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-    </style>
 </head>
 
 <body>
@@ -188,6 +130,49 @@
         </div>
     </div>
 
+    <!-- Search Modal -->
+
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <form action="{{ route('home.search') }}" method="post" class="form form-inline">
+                            @csrf
+                            @method('POST')
+                            <input id="searchInput" type="text" class="form-control" placeholder="Search"
+                                aria-label="Search term" aria-describedby="button-addon2">
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                        </form>
+
+
+
+                    </div>
+                    <div id="searchResults">
+                        @if (session('results'))
+                            <div class="alert alert-success">
+                                Search Results:
+                                <ul>
+                                    @foreach (session('results') as $result)
+                                        <li>{{ $result->column_name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/home/modal.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @yield('script')
 
