@@ -133,13 +133,17 @@
             });
         });
 
-        //Post_View Script
-        function redirectToTagView(tag) {
-            var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
-            url = url.replace(':tag_id', tag);
-            window.location.href = url;
-        }
+       //Post_View Script
 
-        @yield('post_scripts')
-    </script>
+       function redirectToTagView(tag) {
+        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
+        url = url.replace(':tag_id', tag);
+        window.location.href = url;
+        console.log('Hello Tag');
+    }
+
+       @yield ('post_scripts')
+
+       
+   </script> 
 @endsection
