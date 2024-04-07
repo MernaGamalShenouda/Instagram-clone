@@ -26,7 +26,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
+// Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
 
 
 Route::middleware('auth')->group(function () {

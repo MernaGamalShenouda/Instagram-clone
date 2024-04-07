@@ -87,7 +87,7 @@
                 <ul class="nav flex-column mb-0">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <img src="../assets/home.png" alt="">
+                            <img src="/assets/home.png" alt="">
                             <span>Home</span>
                         </a>
                     </li>
@@ -102,25 +102,25 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <img src="../assets/social.png" alt="">
+                            <img src="/assets/social.png" alt="">
                             <span>Explore</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <img src="../assets/video.png" alt="">
+                            <img src="/assets/video.png" alt="">
                             <span>Reels</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <img src="../assets/chat.png" alt="">
+                            <img src="/assets/chat.png" alt="">
                             <span>Messages</span>   
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" id="notificationLink">
-                            <img src="../assets/heart.png" alt="">
+                            <img src="/assets/heart.png" alt="">
                             <span>Notifications</span>
                         </a>
                         <ul class="dropdown-menu mt-2" aria-labelledby="notificationLink" id="notificationDropdown">
@@ -130,7 +130,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <img src="../assets/more.png" alt="">
+                            <img src="/assets/more.png" alt="">
                             <span>Create</span>
                         </a>
                     </li>
