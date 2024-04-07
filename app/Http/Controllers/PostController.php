@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Like;
+use App\Models\Comment;
 use App\Models\SavedPost;
 use App\Models\Post_Tag;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -92,21 +93,17 @@ class PostController extends Controller
             'content' => 'required|string|max:255',
             'post_id' => 'required|numeric',
             'user_id' => 'required|numeric',
-            'updated_at' => 'nullable|date',
-            'created_at' => 'nullable|date',
         ]);
 
-        // Create a new comment instance
-        $comment = new \App\Models\Comment();
-        $comment->content = $validatedData['content'];
-        $comment->post_id = $validatedData['post_id'];
-        $comment->user_id = $validatedData['user_id'];
-        $comment->updated_at = $validatedData['updated_at'];
-        $comment->created_at = $validatedData['created_at'];
+        Comment::create([
+            'content' => $validatedData['content'],
+            'post_id' => $validatedData['post_id'],
+            'user_id' => $validatedData['user_id'],
+            'updated_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
+        ]);
 
-        $comment->save();
-
-        return redirect()->route('posts.view', ['post_id' => $comment->post_id]);
+        return redirect()->route('posts.view', ['post_id' => $validatedData['post_id']]);
     }
 
     public function createLike(Request $request){
