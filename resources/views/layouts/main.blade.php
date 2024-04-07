@@ -120,7 +120,7 @@
         // get Followers List
         $('#followersModal').on('show.bs.modal', function(event) {
             var modal = $(this);
-            $.get('{{ route('profile.followers', $user->username) }}', function(data) {
+            $.get('{{ route("profile.followers", $user->username) }}', function(data) {
                 $('#followersList').html(data);
             });
         });
@@ -128,7 +128,7 @@
         // get Following List
         $('#followingModal').on('show.bs.modal', function(event) {
             var modal = $(this);
-            $.get('{{ route('profile.following', $user->username) }}', function(data) {
+            $.get('{{ route("profile.following", $user->username) }}', function(data) {
                 $('#followingList').html(data);
             });
         });
@@ -140,10 +140,10 @@
         url = url.replace(':tag_id', tag);
         window.location.href = url;
         console.log('Hello Tag');
-    }
 
-       @yield ('post_scripts')
 
-       
+    }   
    </script> 
+        @yield ('post_scripts')
+
 @endsection

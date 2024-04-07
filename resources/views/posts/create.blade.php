@@ -201,7 +201,7 @@
                     let tag = content.substring(tagStart + 1, cursorPosition);
                     if (tag.trim() !== '') {
                         $.ajax({
-                            url: '{{ route('tags.suggest') }}',
+                            url: '{{ route("tags.suggest") }}',
                             type: 'GET',
                             data: {
                                 tag: tag.trim()
