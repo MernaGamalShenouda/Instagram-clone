@@ -28,35 +28,53 @@
             <div class='col-9'>
                 <div class="row">
                     <div class="row story-circles">
-                        <div class="col-1 story">
+                        <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <img src="{{ asset('images\home\stories\flower.jpg') }}" alt="User 1" class="img-fluid">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(2)->username]) }}">
+                                    <img src="{{ asset('images\home\stories\flower.jpg') }}" alt="User 1"
+                                        class="img-fluid">
+                                </a>
                             </div>
-                            <p>use1</p>
+                            <p>{{ \App\Models\User::find(2)->username }}</p>
                         </div>
-                        <div class="col-1 story">
+                        <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <img src="{{ asset('images\home\stories\Spider.jpeg') }}" alt="User 2" class="img-fluid">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(3)->username]) }}">
+
+                                    <img src="{{ asset('images\home\stories\Spider.jpeg') }}" alt="User 2"
+                                        class="img-fluid">
+                                </a>
                             </div>
-                            <p>user2 </p>
+                            <p>{{ \App\Models\User::find(2)->username }} </p>
                         </div>
-                        <div class="col-1 story">
+                        <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <img src="{{ asset('images\home\stories\Hacker.jpeg') }}" alt="User 3" class="img-fluid">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(4)->username]) }}">
+
+                                    <img src="{{ asset('images\home\stories\Hacker.jpeg') }}" alt="User 3"
+                                        class="img-fluid">
+                                </a>
                             </div>
-                            <p>user3 </p>
+                            <p>{{ \App\Models\User::find(4)->username }} </p>
                         </div>
-                        <div class="col-1 story">
+                        <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <img src="{{ asset('images\home\stories\girl.jpeg') }}" alt="User 4" class="img-fluid">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(5)->username]) }}">
+                                    <img src="{{ asset('images\home\stories\girl.jpeg') }}" alt="User 4"
+                                        class="img-fluid">
+                                </a>
                             </div>
-                            <p>user4</p>
+                            <p>{{ \App\Models\User::find(5)->username }}</p>
                         </div>
-                        <div class="col-1 story">
+                        <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <img src="{{ asset('images\home\stories\Tom.jpeg') }}" alt="User 5" class="img-fluid">
+
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(1)->username]) }}">
+                                    <img src="{{ asset('images\home\stories\Tom.jpeg') }}" alt="User 5"
+                                        class="img-fluid">
+                                </a>
                             </div>
-                            <p>user5</p>
+                            <p>{{ \App\Models\User::find(1)->username }}</p>
                         </div>
                     </div>
                 </div>
@@ -67,12 +85,17 @@
                                 <div class="card-title d-flex align-items-center">
                                     <div class="d-flex align-items-center">
                                         <div class="avatar">
-                                            <img src="{{ $post->user->avatar }}" alt="{{ $post->user->username }}"
-                                                class="img-fluid">
+                                            <a href="{{ route('profile.show', ['username' => $post->user->username]) }}">
+                                                <img src="{{ $post->user->avatar }}" alt="{{ $post->user->username }}"
+                                                    class="img-fluid">
+                                            </a>
                                         </div>
-                                        <span class="username mx-2">
-                                            <b>{{ $post->user->username }}</b>
-                                        </span>
+                                        <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}">
+                                            <span class="username mx-2">
+
+                                                <b>{{ $post->user->username }}</b>
+                                            </span>
+                                        </a>
                                         <span>
                                             {{ $post->created_at->diffForHumans(null, true) }}</span>
                                     </div>
@@ -190,14 +213,16 @@
 
                             <div class=" col-9 d-flex justify-content-start align-items-center">
                                 <div class="col-5">
-                                    <img src="{{ asset($user->avatar) }}" class="rounded-circle profileImage"
-                                        alt="Profile Image">
+                                    <a href="{{ route('profile.show', ['username' => $user->username]) }}">
+                                        <img src="{{ asset($user->avatar) }}" class="rounded-circle profileImage"
+                                            alt="Profile Image">
                                 </div>
                                 <div class="px-3 col-7">
                                     <div id="full_name">
                                         <h6>{{ $user->full_name }}</h6>
                                     </div>
                                     <div id="username">{{ $user->username }}</div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -220,13 +245,17 @@
 
                                             <div class=" col-9 d-flex justify-content-start align-items-center">
                                                 <div class="col-4">
-                                                    <img src="{{ $suggestion->avatar }}"
-                                                        class="rounded-circle profileImage" alt="Profile Image">
+                                                    <a
+                                                        href="{{ route('profile.show', ['username' => $suggestion->username]) }}">
+
+                                                        <img src="{{ $suggestion->avatar }}"
+                                                            class="rounded-circle profileImage" alt="Profile Image">
                                                 </div>
                                                 <div class="px-3 col-8">
                                                     <div id="full_name"><b>{{ $suggestion->full_name }}</b></div>
                                                     <div id="username">{{ $suggestion->username }}</div>
                                                 </div>
+                                                </a>
                                             </div>
                                             <div class="col-2">
                                                 <a href="#" class="btn px-4">Follow</a>

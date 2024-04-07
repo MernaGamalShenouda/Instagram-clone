@@ -97,7 +97,7 @@
 
                     <ul class="nav flex-column mb-0">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('home.index') }}" class="nav-link">
                                 <img src="/assets/home.png" alt="">
                                 <span>Home</span>
                             </a>
@@ -149,7 +149,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
+                                class="nav-link">
                                 <i class="bi bi-person"></i> Profile
                             </a>
                         </li>
@@ -161,7 +162,9 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="moreDropdown">
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark"></i> Saved</a>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"><i
+                                            class="bi bi-bookmark"></i> Saved</a>
                                 </li>
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>
                                         Switch Account</a></li>
