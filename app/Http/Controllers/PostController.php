@@ -150,7 +150,7 @@ class PostController extends Controller
         $existingBookmark = SavedPost::where('post_id', $request->input('post_id'))
                              ->where('user_id', $request->input('user_id'))
                              ->first();
-
+        
         if ($existingBookmark) {
             $existingBookmark->delete();
         } else {
