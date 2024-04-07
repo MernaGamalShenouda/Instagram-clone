@@ -11,9 +11,10 @@ class TagController extends Controller
     public function view(string $tag_name)
     {   
         $tag = \App\Models\Tag::where('name', $tag_name)->first();
-        $postIds = $tag->posts()->pluck('post_id')->toArray();
+        // $postIds = $tag->posts()->pluck('post_id')->toArray();
+        $posts = $tag->posts()->get();
 
-        return view('tags.view', ['posts' => $postIds]);
+        return view('tag', ['posts' => $posts, 'tag' => $tag]);
     }
     
     // public function show(string $tag)

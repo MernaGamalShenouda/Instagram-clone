@@ -27,7 +27,6 @@ class PostController extends Controller
      * Show the form for creating a new resource.
      */
     // In your controller method
-    // In your controller method
     public function create()
     {
 
@@ -36,8 +35,6 @@ class PostController extends Controller
 
         return view('posts.create', ['user' => $userSigned]);
     }
-
-
 
     public function store(Request $request)
     {
@@ -67,7 +64,6 @@ class PostController extends Controller
             }
         }
         $post->images = json_encode($imagePublicIds);
-
 
         $post->save();
 

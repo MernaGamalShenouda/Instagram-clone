@@ -152,7 +152,12 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         @endsection
+=======
+@endsection
+
+>>>>>>> b6bc34196f0eaea0ffc959642b2e8c2ab0f87d41
 @section('post_script')
 <script>
     var comments = {!! json_encode($comments) !!};
@@ -258,8 +263,11 @@
         });
     });
 
+<<<<<<< HEAD
     
 
+=======
+>>>>>>> b6bc34196f0eaea0ffc959642b2e8c2ab0f87d41
 </script>
 
 @endsection

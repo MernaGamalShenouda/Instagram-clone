@@ -140,6 +140,22 @@
             window.location.href = url;
         }
 
+<<<<<<< HEAD
         @yield('post_scripts')
     </script>
+=======
+       //Post_View Script
+
+       function redirectToTagView(tag) {
+        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
+        url = url.replace(':tag_id', tag);
+        window.location.href = url;
+        console.log('Hello Tag');
+    }
+
+       @yield ('post_scripts')
+
+       
+   </script> 
+>>>>>>> b6bc34196f0eaea0ffc959642b2e8c2ab0f87d41
 @endsection
