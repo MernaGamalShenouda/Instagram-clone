@@ -62,7 +62,7 @@ body {
 }
 .post-card,
 .saved-post-grid .card {
-    height: 300px;
+    max-height: 200px;
     overflow: hidden;
 }
 .post-card img,
@@ -71,6 +71,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 0;
+    align-items: center;
 }
 
 .card-img{

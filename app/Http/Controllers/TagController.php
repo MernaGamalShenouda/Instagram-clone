@@ -16,11 +16,11 @@ class TagController extends Controller
         return view('tags.view', ['posts' => $postIds]);
     }
     
-    public function show(string $tag)
-    {
-        $data = Tag::with('posts')->where('id',$tag)->first();
-        return view('tag',['tag'=>$data]);
-    }
+    // public function show(string $tag)
+    // {
+    //     $data = Tag::with('posts')->where('id',$tag)->first();
+    //     return view('tag',['tag'=>$data]);
+    // }
 
 }
 

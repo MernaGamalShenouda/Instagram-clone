@@ -26,7 +26,7 @@
                                 <div class="card post-card">
                                     <!-- <img class="card-img-top" src="{{ $post->images }}" alt="Post Image"> -->
                                     @php
-                                        $images = json_decode(json_decode($post->images));
+                                                    $images = json_decode($post->images);
                                     @endphp
                                    @foreach ($images as $index => $image)
                                         @if ($index === 0)
@@ -49,7 +49,17 @@
                         <div class="col-md-4 mb-1">
                             <a href="{{ route('posts.view', $savedPost->post->id) }}">
                                 <div class="card post-card">
-                                    <img class="card-img-top" src="{{ $savedPost->post->images }}" alt="Post Image">
+                                    <!-- <img class="card-img-top" src="{{ $savedPost->post->images }}" alt="Post Image"> -->
+                                    @php
+                                        $images = json_decode($savedPost->post->images);
+                                    @endphp
+                                   @foreach ($images as $index => $image)
+                                        @if ($index === 0)
+                                            <div class='card-img'>
+                                                <img src="https://res.cloudinary.com/dp3xwqpsq/image/upload/{{ $image }}" class="d-block img-fluid " alt="Post Image">
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </a>
                         </div>
@@ -64,7 +74,17 @@
                     <div class="col-md-4 mb-1">
                         <a href="/instagram/p/{{ $post->id }}">
                             <div class="card post-card">
-                                <img class="card-img-top" src="{{ $post->images }}" alt="Post Image">
+                                <!-- <img class="card-img-top" src="{{ $post->images }}" alt="Post Image"> -->
+                                    @php
+                                        $images = json_decode($post->images);
+                                    @endphp
+                                   @foreach ($images as $index => $image)
+                                        @if ($index === 0)
+                                            <div class='card-img'>
+                                                <img src="https://res.cloudinary.com/dp3xwqpsq/image/upload/{{ $image }}" class="d-block img-fluid " alt="Post Image">
+                                            </div>
+                                        @endif
+                                    @endforeach
                             </div>
                         </a>
                     </div>
@@ -114,114 +134,8 @@
 
        //Post_View Script
 
-       var comments = {!! json_encode($comments) !!};
+       @yield ('post_scripts')
 
-        function getCurrentDateTime() {
-            return new Date().toISOString();
-        }
-
-        function submitForm(event) {
-            event.preventDefault(); 
-            var formData = new FormData(event.target);
-            
-            formData.set('updated_at', getCurrentDateTime());
-            formData.set('created_at', getCurrentDateTime());
-            
-            // Perform AJAX request
-            fetch(event.target.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    var commentContent = event.target.querySelector('[name="content"]').value;
-                    var newComment = { content: commentContent };
-
-                    fetchComments(newComment);
-                    event.target.querySelector('[name="content"]').value = ''; // Clear the input value
-                } else {
-                    console.error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        function fetchComments(newComment) {
-            var commentsContainer = document.getElementById('commentsContainer');
-            var commentElement = document.createElement('p');
-            var currentComments = parseInt($('.Comments').text());
-            $('.Comments').text(currentComments+1);
-
-            commentElement.innerHTML = `<strong>{{ $user->username }}:</strong> ${newComment.content}`;
-            commentsContainer.appendChild(commentElement);
-        }
-
-        document.getElementById('commentForm').addEventListener('submit', submitForm);
-
-        $(document).ready(function() {
-            $('#like-form').submit(function(event) {
-                // Prevent the form from submitting normally
-                event.preventDefault();
-
-                // Send AJAX request
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        var likeButton = $('#like-form').find('.like-button');
-                        likeButton.toggleClass('liked');
-                        likeButton.find('.fa-heart').toggleClass('fas black-heart').toggleClass('far');
-
-                        var currentLikes = parseInt($('.Likes').text());
-                        if (likeButton.hasClass('liked')) {
-                            $('.Likes').text(currentLikes+1);
-                        } else {
-                            $('.Likes').text(currentLikes-1);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            // Bookmark form submission
-            $('#bookmark-form').submit(function(event) {
-                // Prevent the form from submitting normally
-                event.preventDefault();
-
-                // Send AJAX request
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        var bookmarkButton = $('#bookmark-form').find('.btn-lg');
-                        bookmarkButton.find('.fa-bookmark').toggleClass('fas far');
-
-                        // Optionally, you can update UI or perform other actions upon success
-                        console.log('Bookmark action success');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-
-        function redirectToTagView(tag) {
-            var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
-            url = url.replace(':tag_id', tag);
-            window.location.href = url;
-        }
-
+       
    </script> 
 @endsection
