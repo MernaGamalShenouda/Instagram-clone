@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Follower;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProfileController extends Controller
 {
@@ -18,9 +19,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = User::findOrFail($request->user()->id);
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
+
     }
 
     /**
@@ -28,13 +31,42 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->updateAvatar($user->id);
+
+        $user->fill([
+            'full_name' => $request->input('full_name'),
+            'bio' => $request->input('bio'),
+            'gender' => $request->input('gender'),
+            'website' => $request->input('website'),
+        ]);
+
+        $user->save();
+
+        if ($request->hasFile('image')) {
+
+            $image=$request->file('image') ;
+            
+                if ($image->isValid()) {
+                    $result = Cloudinary::upload($image->getRealPath(), [
+                        'folder' => 'ProfileImgs',
+                    ]);
+                    $imagePublicId = $result->getPublicId();
+                    $user->image = json_encode($imagePublicId);
+                }
+            
         }
 
-        $request->user()->save();
+
+        $user->save();
+
+        if ($request->user()->isDirty('email')) {
+            $user->email_verified_at = null;
+            $user->save();
+        }
+
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

@@ -44,7 +44,8 @@ class RegisteredUserController extends Controller
             'avatar' => ['nullable', 'string', 'max:255'],
             
         ]);
-
+        
+        
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -55,9 +56,10 @@ class RegisteredUserController extends Controller
             'bio' => $request->bio,
             'image' => $request->image,
             'avatar' => $request->avatar,
-
+            
         ]);
-
+        
+        $user->updateAvatar($user->id);
         $user->notify(new VerifyEmail($user));
 
         event(new Registered($user));
