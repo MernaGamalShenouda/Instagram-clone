@@ -129,3 +129,8 @@
 .liked {
     color: red; 
 }
+
+.post-view-username:hover {
+    color: #6c757d; 
+    text-decoration: none; 
+  }

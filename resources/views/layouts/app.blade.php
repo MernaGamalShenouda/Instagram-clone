@@ -30,6 +30,7 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-white">
         @include('layouts.navigation')
+        @include('layouts.navigation')
 
         <!-- Page Heading -->
         @if (isset($header))

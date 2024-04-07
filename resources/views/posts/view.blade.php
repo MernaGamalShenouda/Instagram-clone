@@ -50,7 +50,9 @@
                                                 <img src="{{ $post->user->avatar }}"
                                                     class="img-fluid rounded avatar-image" alt="User Avatar">
                                                 <div>
-                                                    <p class="username"><strong>{{ $post->user->username }}</strong></p>
+                                                    <a href="/profile/{{ $post->user->username }}" class="d-inline-block text-decoration-none text-dark">
+                                                        <p class="username post-view-username"><strong>{{ $post->user->username }}</strong></p>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,8 +71,13 @@
                                             </div>
                                             <div id='commentsContainer' class="p-0 m-0">
                                                 @foreach ($comments as $comment)
-                                                    <p><strong>{{ $comment->user->username }}:</strong>
-                                                        {{ $comment->content }}</p>
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <img src="{{ $comment->user->avatar }}" alt="User Avatar" class="rounded-circle" style="width: 30px; height: 30px; margin-right:12px">
+                                                        <div>
+                                                            <p class="m-0"><strong>{{ $comment->user->username }}</strong>: {{ $comment->content }}</p>
+                                                            <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -157,17 +164,10 @@
 <script>
     var comments = {!! json_encode($comments) !!};
 
-    function getCurrentDateTime() {
-        return new Date().toISOString();
-    }
-
     function submitForm(event) {
         event.preventDefault();
         var formData = new FormData(event.target);
-
-        formData.set('updated_at', getCurrentDateTime());
-        formData.set('created_at', getCurrentDateTime());
-
+        
         // Perform AJAX request
         fetch(event.target.action, {
             method: 'POST',
