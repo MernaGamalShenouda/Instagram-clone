@@ -134,6 +134,13 @@
 
        //Post_View Script
 
+       function redirectToTagView(tag) {
+        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
+        url = url.replace(':tag_id', tag);
+        window.location.href = url;
+        console.log('Hello Tag');
+    }
+
        @yield ('post_scripts')
 
        

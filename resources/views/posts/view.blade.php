@@ -155,7 +155,6 @@
                             </div>
 @endsection
 
-
 @section('post_script')
 <script> 
     var comments = {!! json_encode($comments) !!};
@@ -260,12 +259,6 @@
             });
         });
     });
-
-    function redirectToTagView(tag) {
-        var url = "{{ route('tags.view', ['tag_id' => ':tag_id']) }}";
-        url = url.replace(':tag_id', tag);
-        window.location.href = url;
-    }
 
 </script>
 
