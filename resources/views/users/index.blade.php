@@ -2,6 +2,7 @@
 @section('title', 'Index Page')
 
 @section('content')
+<div class="container mt-5">
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -33,6 +34,14 @@
             @endforeach
         </tbody>
     </table>
-    {!! $users ->links() !!}
-@endsection
+</div>
 
+<div class="container mt-3">
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            {{ $users->links('vendor.pagination.bootstrap-4') }}
+        </div>
+    </div>
+</div>
+
+@endsection

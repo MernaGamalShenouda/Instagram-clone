@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = \App\Models\Post::with('user')->paginate();
+        $posts = \App\Models\Post::with('user')->paginate(10);
         return view('posts.index',['posts'=> $posts]);
     }
 
