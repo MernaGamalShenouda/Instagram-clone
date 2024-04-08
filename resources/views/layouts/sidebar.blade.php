@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/1409/1409946.png" type="image/x-icon">
+
     <title>@yield('title')</title>
 
     <!-- Bootstrap 5.3.0 CSS -->
@@ -27,7 +29,7 @@
 
     <style>
         body {
-            background-color: #f0f0f0;
+            background-color: white;
         }
 
         a>img,
@@ -179,7 +181,7 @@
                 </div>
             </div>
 
-            <!-- Content Adel-->
+            <!-- Content-->
             <div class="col-9">
                 <div class="container">
                     @yield('content')

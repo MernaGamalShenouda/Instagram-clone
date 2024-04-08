@@ -1,47 +1,47 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-.modal{
+/* .modal {
     --bs-modal-border-color: none;
 }
 
-.modal-header{
-    padding: 0.5em ;
+.modal-header {
+    padding: 0.5em;
 }
 
 .btn-close {
     color: white !important;
-}
+} */
 
-.modal-body{
+/* .modal-body {
     padding: 0;
 }
 
-.modal-dialog{
+.modal-dialog {
     margin: 0;
     max-width: 100% !important;
 }
 
-.modal-content{
+.modal-content {
     background-color: transparent;
-}
+} */
 
-.postImg-section{
+.postImg-section {
     background-color: black;
 }
 
-.post-view-card{
+.post-view-card {
     max-height: 90vh;
     min-height: 90vh;
 }
 
-.card-outer-body{
+.card-outer-body {
     /* height: 80vh; */
     height: 100vh;
 }
 
-.card-body{
+.card-body {
     max-height: 60vh;
     overflow: auto;
 }
@@ -50,7 +50,7 @@
     height: 10%;
 } */
 
-.input-group{
+.input-group {
     padding: 0.5em;
 }
 
@@ -72,11 +72,11 @@
     color: darkblue;
 }
 
-.btn{
+.btn {
     --bs-btn-border-color: none;
 }
 
-.post-likes-section{
+.post-likes-section {
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     height: 20%;
 }
@@ -114,7 +114,7 @@
     margin-bottom: 0;
 }
 
-.like-button{
+.like-button {
     padding: 0;
 }
 
@@ -127,10 +127,10 @@
 }
 
 .liked {
-    color: red; 
+    color: red;
 }
 
 .post-view-username:hover {
-    color: #6c757d; 
-    text-decoration: none; 
-  }
+    color: #6c757d;
+    text-decoration: none;
+}

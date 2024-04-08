@@ -1,20 +1,22 @@
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="followersModalLabel">Followers</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            @foreach($followers as $follower)
-                <div class="media">
-                    <img src="{{ $follower->avatar }}" class="mr-3" alt="...">
-                    <div class="media-body">
-                        <h5 class="mt-0">{{ $follower->username }}</h5>
-                    </div>
+<div class="modal-header">
+    <h6 class="modal-title text-center" id="followersModalLabel">Followers</h6>
+</div>
+<div class="modal-body">
+    @foreach($followers as $follower)
+        <div class="media">
+            <a href="{{ route('profile.show', $follower->username) }}">
+                <img src="{{ $follower->avatar }}" class="mr-3 rounded-circle avatar-profile" alt="Avatar">
+            </a>
+            <div class="media-body d-flex align-items-center">
+                <div>
+                    <h6 class="mt-0 mb-1">
+                        <a href="{{ route('profile.show', $follower->username) }}" class="user-name">{{ $follower->username }}</a>
+                    </h6>
+                    <p class="text-muted mb-0">
+                        <a href="{{ route('profile.show', $follower->username) }}" class="full-name">{{ $follower->full_name }}</a>
+                    </p>
                 </div>
-            @endforeach
+            </div>
         </div>
-    </div>
+    @endforeach
 </div>
