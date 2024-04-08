@@ -32,6 +32,10 @@
             background-color: white;
         }
 
+        .sidebar{
+            width: 230px;
+        }
+
         a>img,
         .nav-link>span {
             vertical-align: middle;
@@ -50,7 +54,7 @@
         .sidebar .nav-link {
             color: black;
             font-size: 1.1rem;
-            padding: 14px 1px;
+            padding: 14px 10px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -93,6 +97,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 col-lg-2 ps-0  sidebar border-end ms-3">
+                <div class="position-fixed">
                 <div class="d-flex flex-column align-items-start px-3  mt-5 ps-1">
                     <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
                         title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
@@ -178,6 +183,7 @@
                             </ul>
                         </li>
                     </ul>
+                    </div>
                 </div>
             </div>
 
