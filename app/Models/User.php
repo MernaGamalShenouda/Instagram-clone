@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use App\Models\SavedPost;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -100,5 +102,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'followee_id', 'follower_id')->withTimestamps();
+    }
+
+    public function savedPosts()
+    {
+        return $this->hasMany(SavedPost::class);
     }
 }

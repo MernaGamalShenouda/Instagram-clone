@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-right: 130px;
+}
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.profile-avatar {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.profile-details {
+    margin-left: 20px;
+    flex-grow: 1;
+}
+.profile-details h1 {
+    margin-top: 30px;
+    margin-right: 40px;
+    font-size: 28px;
+}
+.profile-stats {
+    display: flex;
+    margin-top: 10px;
+}
+.profile-stats div {
+    margin-right: 20px;
+    font-size: 16px;
+}
+.profile-stats div a {
+    color: black;
+    text-decoration: none;
+}
+.profile-stats div a:hover {
+    text-decoration: none;
+}
+.profile-bio {
+    margin-top: 20px;
+    font-size: 16px;
+}
+.edit-button {
+    padding: 5px 18px;
+    background-color: #e5e5e5;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.edit-button:hover {
+    background-color: #e5e5e5;
+    color: black;
+}
+.post-card,
+.saved-post-grid .card {
+    max-height: 200px;
+    overflow: hidden;
+}
+.post-card img,
+.saved-post-grid .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    align-items: center;
+}
+
+.card-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.post-grid .col-md-4,
+.saved-post-grid .col-md-4 {
+    padding: 5px;
+}
+
+.tab {
+    cursor: pointer;
+}
+.tab-container {
+    margin-top: 20px;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+.modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.follower-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tab {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.tab.active {
+    background-color: #ccc;
+}

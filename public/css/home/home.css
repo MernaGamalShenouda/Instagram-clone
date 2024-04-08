@@ -7,6 +7,10 @@
     border: 5px solid transparent;
     transition: border-color 0.3s ease;
 }
+.suggest .story-circle{
+    width: 3.1em;
+    height: 3.1em;
+}
 .story {
     margin-left: 1em;
     display: flex;
@@ -37,11 +41,15 @@
     align-items: center;
     flex-direction: column;
 }
+
 .card {
-    margin: 2em;
-    border-radius: 1em;
-    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    margin: 1em;
+    border: none !important;
     transition: box-shadow 0.3s ease;
+}
+.card-body {
+    min-height: 900px !important;
+    overflow: hidden !important;
 }
 .fa-heart {
     color: red;
@@ -95,9 +103,13 @@
     padding: 0 !important;
     margin: 0 !important;
 }
-a, a:hover{
-    text-decoration: none;
+.username,
+a,
+.profile-details a{
+    color: black !important;
+    text-decoration: none !important;
 }
+
 .icons button{
     background-color: transparent;
 }
@@ -108,4 +120,15 @@ a, a:hover{
 .profileImage{
     width: 40px !important;
     height:40px !important;
+}
+.post-avatar{
+    width: 40px !important;
+    height:40px !important;
+}
+.suggest{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky!important;
+
 }

@@ -31,18 +31,19 @@
     background-color: black;
 }
 
-.card{
+.post-view-card{
     max-height: 90vh;
     min-height: 90vh;
 }
 
 .card-outer-body{
+    /* height: 80vh; */
     height: 100vh;
 }
 
 .card-body{
-    height:55%;
-    overflow-y: auto;
+    max-height: 60vh;
+    overflow: auto;
 }
 
 /* .post-input-section{
@@ -112,3 +113,24 @@
     margin-top: none !important;
     margin-bottom: 0;
 }
+
+.like-button{
+    padding: 0;
+}
+
+.fa-heart {
+    color: red;
+}
+
+.black-heart {
+    color: black;
+}
+
+.liked {
+    color: red; 
+}
+
+.post-view-username:hover {
+    color: #6c757d; 
+    text-decoration: none; 
+  }

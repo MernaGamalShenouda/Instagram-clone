@@ -20,7 +20,7 @@ class HomeController extends Controller
         $user = Auth::user();
         // $user=User::find(2);
 
-        $followeeIds = Follower::where('followee_id', $user->id)->pluck('follower_id');
+        $followeeIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
 
         $posts = Post::whereIn('user_id', $followeeIds)
                     ->with('user', 'comments.user')
@@ -35,6 +35,7 @@ class HomeController extends Controller
                         ->get();
 
 
+
         return view('home.index', ['user' => $user, 'posts' => $posts, 'suggestions' => $suggestions]);
     }
 
@@ -43,7 +44,7 @@ class HomeController extends Controller
         $this->validate($request, [
             'content' => 'required',
             'post_id' => 'required',
-            'post_id' => 'required',
+            'user_id' => 'required',
         ]);
 
         Comment::create([
@@ -114,5 +115,16 @@ class HomeController extends Controller
 
         return view('home.suggestions', ['suggestions' => $suggestions]);
     }
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+    $results = User::where('username', 'like', "%$search%")
+    ->orWhere('full_name', 'like', "%$search%")
+    ->get();
+
+    return view('home.search', ['results' => $results]);
+}
+
+
 
 }
