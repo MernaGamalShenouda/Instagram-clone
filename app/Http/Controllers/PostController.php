@@ -21,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = \App\Models\Post::with('user')->paginate(10);
+        return view('posts.index',['posts'=> $posts]);
     }
 
     /**
@@ -30,10 +31,7 @@ class PostController extends Controller
     // In your controller method
     public function create()
     {
-
-
         $userSigned = User::find(auth()->id());
-
         return view('posts.create', ['user' => $userSigned]);
     }
 
@@ -158,15 +156,14 @@ class PostController extends Controller
         return redirect()->route('posts.view', ['post_id' => $request->input('post_id')]);
     }
 
-
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+    public function show(string $id) {
+        $post = \App\Models\Post::withCount(['comments', 'likes'])->find($id);
+        return view('posts.show', ['post' => $post]);
     }
+
 
     /**
      * Display the specified clicked resource.
@@ -206,8 +203,9 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(string $id) {
+        \App\Models\Post::where("id", $id)->delete();
+        $posts = \App\Models\Post::with('user')->paginate();
+        return view('posts.index',['posts'=> $posts]);
+     }
 }
