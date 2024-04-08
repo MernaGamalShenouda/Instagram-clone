@@ -23,27 +23,28 @@
 
     @section('content')
 
-    @yield ('home_content')
-
-    <div class="container">
-        <div class="row">
-            <div class="col-3">nav</div>
-            <div class="col-9 my-3 suggested">
-                <div>
-                    <h6> Suggested: </h6>
-                </div>
-                <div class="container">
-                    @foreach ($suggestions as $suggestion)
+        @yield ('home_content')
+        <div class="col-10 m-5 suggested ">
+            <div>
+                <h6> Suggested: </h6>
+            </div>
+            <div class="container">
+                @foreach ($suggestions as $suggestion)
                     <div class="row ">
                         <div class=" col-8 profile-bar p-3 d-flex justify-content-around align-items-center">
-                            <div class=" col-9 d-flex justify-content-start align-items-center">
+                            <div class=" col-9 d-flex justify-content-start align-items-center profile-details">
                                 <div class="col-2">
-                                    <img src="{{ $suggestion->avatar }}" class="rounded-circle profileImage"
-                                        alt="Profile Image">
+                                    <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}">
+                                        <img src="{{ $suggestion->avatar }}" class="rounded-circle profileImage"
+                                            alt="Profile Image">
+                                    </a>
                                 </div>
                                 <div class="px-3 col-10">
-                                    <div id="full_name"><b>{{ $suggestion->full_name }}</b></div>
-                                    <div id="username">{{ $suggestion->username }}</div>
+                                    <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}">
+
+                                        <div id="full_name"><b>{{ $suggestion->full_name }}</b></div>
+                                        <div id="username">{{ $suggestion->username }}</div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -51,16 +52,14 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                </div>
+                @endforeach
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4/dist/emoji-button.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="{{ asset('js/home/home.js') }}"></script>
-    <script src="{{ asset('js/home/emojy.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4/dist/emoji-button.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+        <script src="{{ asset('js/home/home.js') }}"></script>
+        <script src="{{ asset('js/home/emojy.js') }}"></script>
     @endsection
 </body>
 

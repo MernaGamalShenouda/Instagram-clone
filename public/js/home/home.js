@@ -50,7 +50,7 @@ class StoryAnimator {
     }
     setupAddCommentListeners() {
         this.addCommentButtons.forEach((button) => {
-            button.style.display = 'none'; // Hide the button initially
+            button.style.display = 'none';
         });
 
         this.commentInputs = document.querySelectorAll(".form-control[name='content']");
@@ -61,16 +61,29 @@ class StoryAnimator {
             });
         });
 
-        // Add event listener for "View all comments" link
+        document.querySelectorAll('.dropdown-item').forEach((item) => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+                const emoji = item.textContent;
+                const input = item.closest('.form-row').querySelector('.form-control[name="content"]');
+                if (!input.value.endsWith(emoji)) {
+                    input.value += emoji;
+                }
+                input.focus();
+            });
+        });
+
+
         document.querySelectorAll('.view-comments-link').forEach((link) => {
             link.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent the default link behavior
-                const postId = link.getAttribute('data-post-id'); // Get the post ID from the link's data attribute
-                const modal = new bootstrap.Modal(document.getElementById('commentModal')); // Get the modal element
-                modal.show(); // Show the modal
+                event.preventDefault();
+                const postId = link.getAttribute('data-post-id');
+                const modal = new bootstrap.Modal(document.getElementById('commentModal'));
+                modal.show();
             });
         });
     }
+
 
 
 

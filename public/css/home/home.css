@@ -7,6 +7,10 @@
     border: 5px solid transparent;
     transition: border-color 0.3s ease;
 }
+.suggest .story-circle{
+    width: 3.1em;
+    height: 3.1em;
+}
 .story {
     margin-left: 1em;
     display: flex;
@@ -99,12 +103,13 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+.username,
 a,
-a:hover{
+.profile-details a{
     color: black !important;
     text-decoration: none !important;
-    cursor: pointer !important;
 }
+
 .icons button{
     background-color: transparent;
 }
@@ -115,4 +120,15 @@ a:hover{
 .profileImage{
     width: 40px !important;
     height:40px !important;
+}
+.post-avatar{
+    width: 40px !important;
+    height:40px !important;
+}
+.suggest{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky!important;
+
 }
