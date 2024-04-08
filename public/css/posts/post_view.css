@@ -134,3 +134,22 @@
     color: #6c757d;
     text-decoration: none;
 }
+
+.carousel{
+    margin: auto;
+}
+
+.carousel-inner{
+   max-height: 500px;
+   margin: auto;
+}
+
+.scrollable-emoji-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-menu .dropdown-item {
+    display: inline-block;
+    padding: 5px;
+}

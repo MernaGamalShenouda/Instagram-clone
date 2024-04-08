@@ -8,7 +8,7 @@
             <div class="col-md-6 d-flex align-items-center postImg-section">
                 <div id="carouselExampleIndicators" class="carousel slide"
                     data-bs-interval="false">
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" style="max-height: 500px;">
                         @php
                             $images = json_decode($post->images);
                         @endphp
@@ -110,8 +110,7 @@
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
 
                                 <button type="submit" class="btn btn-lg">
-                                    <i
-                                        class="{{ $post->isBookmarked($user->id) ? 'fas' : 'far' }} fa-bookmark"></i>
+                                    <i class="{{ $post->isBookmarked($user->id) ? 'fas' : 'far' }} fa-bookmark"></i>
                                 </button>
                             </form>
                         </div>
@@ -126,32 +125,40 @@
 
                 <!-- Add Comment -->
                 <div class="col-md-12 post-input-section">
-                    <form method="POST" action="{{ route('posts.storeComment') }}"
-                        id='commentForm'>
-                        @csrf <!-- CSRF token -->
-                        <input type="hidden" name="post_id" value="{{ $post->id }}">
-                        <input type="hidden" name="user_id" value="{{ $user->id }}">
-                        <input type="hidden" name="updated_at" id="updated_at">
-                        <input type="hidden" name="created_at" id="created_at">
+                <form method="POST" action="{{ route('posts.storeComment') }}" id='commentForm'>
+                    @csrf <!-- CSRF token -->
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    <input type="hidden" name="updated_at" id="updated_at">
+                    <input type="hidden" name="created_at" id="created_at">
 
-                        <div class="input-group border">
-                            <button class="btn dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                😊 <!-- Default emoji icon -->
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">😊</a></li>
-                                <li><a class="dropdown-item" href="#">❤️</a></li>
-                                <li><a class="dropdown-item" href="#">👍</a></li>
-                            </ul>
-                            <input type="text" class="form-control border-0"
-                                name="content" placeholder="Add a comment...">
-                            <input type="text" class="form-control border-0"
-                                name="username" hidden value="{{ $user->username }}">
-                            <button class="btn custom-btn" type="submit">Post</button>
-                            <!-- Submit button -->
-                        </div>
-                    </form>
+                    <div class="input-group border">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            😊 <!-- Default emoji icon -->
+                        </button>
+                        <ul class="dropdown-menu scrollable-emoji-menu">
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="😊">😊</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="❤️">❤️</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="👍">👍</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="😂">😂</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="😍">😍</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="😎">😎</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="🙌">🙌</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="🎉">🎉</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="🔥">🔥</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="💯">💯</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="🚀">🚀</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="🌟">🌟</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="🎶">🎶</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="💖">💖</a></li>
+                            <li><a class="dropdown-item emoji" href="#" data-emoji="💥">💥</a></li>
+                        </ul>
+                        <input type="text" class="form-control border-0" name="content" id="content" placeholder="Add a comment...">
+                        <input type="text" class="form-control border-0" name="username" hidden value="{{ $user->username }}">
+                        <button class="btn custom-btn" type="submit">Post</button> <!-- Submit button -->
+                    </div>
+                </form>
+
                 </div>
             </div>
         </div>
