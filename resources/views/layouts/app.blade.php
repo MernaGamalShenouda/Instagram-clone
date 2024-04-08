@@ -29,11 +29,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-white">
-<<<<<<< HEAD
-        <!-- @include('layouts.navigation') -->
-=======
         @include('layouts.navigation') 
->>>>>>> origin/Nardine
 
         <!-- Page Heading -->
         @if (isset($header))

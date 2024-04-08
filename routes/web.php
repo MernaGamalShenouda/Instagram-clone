@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +25,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-// Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
 
 
 Route::middleware('auth')->group(function () {
@@ -58,6 +56,15 @@ Route::middleware('auth')->group(function () {
 });
 
     Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');
+
+    //Admin Page Routes
+    Route::view('/admin', 'welcomeAdmin')->name('admin');
+    Route::get('/admin/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/admin/posts/{id}', [PostController::class, 'show'])->name('posts.show')->where('id', '[0-9]+');
+    Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/{id}', [UserController::class, 'show'])->name('users.show')->where('id', '[0-9]+');
+    Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 require __DIR__.'/auth.php';
 
