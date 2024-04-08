@@ -148,6 +148,17 @@
         window.location.href = url;
         console.log('Hello Tag');
     }   
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.emoji').forEach(function(emojiItem) {
+            emojiItem.addEventListener('click', function(event) {
+                event.preventDefault();
+                const emoji = this.getAttribute('data-emoji');
+                const contentInput = document.getElementById('content');
+                contentInput.value += emoji;
+            });
+        });
+    });
    </script> 
         @yield ('post_scripts') 
           @yield ('following-script') 
