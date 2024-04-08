@@ -40,8 +40,8 @@ class RegisteredUserController extends Controller
             'gender' => ['required', 'string', 'in:male,female'],
             'website' => ['nullable', 'string', 'max:255'],
             'bio' => ['nullable', 'string'],
-            'image' => ['nullable', 'string', 'max:255'],
-            'avatar' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable'],
+            'avatar' => ['nullable'],
             
         ]);
         
