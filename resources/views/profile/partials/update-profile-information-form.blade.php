@@ -16,24 +16,17 @@
     <form method="post" action="{{ route('profile.update') }}"  class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
-        
-        @php
-        if($user->image){
-            $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($user->image);
-        }
 
-        @endphp
-
-        <x-input-label for="image" :value="__('Image')" />
+        <x-input-label for="avatar" :value="__('Avatar')" />
         <div class="mt-1 flex items-center">
             <div class="w-12 h-12 overflow-hidden rounded-full">
-                <img id="image-preview" class="w-full h-full object-cover rounded-full"
-                    src="{{ $user->image ? $image : $user->avatar }}" alt="Image Preview">
+                <img id="avatar-preview" class="w-full h-full object-cover rounded-full"
+                    src="{{ $user->avatar }}" alt="Avatar Preview">
             </div>
-            <input id="image" name="image" type="file" accept="image/*" class="sr-only"
+            <input id="avatar" name="avatar" type="file" accept="image/*" class="sr-only"
                 onchange="previewAvatar(event)">
-            <label for="image"
-                class="cursor-pointer ml-2 text-sm text-indigo-600 hover:text-indigo-700">{{ __('Select Image') }}</label>
+            <label for="avatar"
+                class="cursor-pointer ml-2 text-sm text-indigo-600 hover:text-indigo-700">{{ __('Select Avatar') }}</label>
         </div>
 
         <div>
@@ -103,7 +96,7 @@
         const reader = new FileReader();
 
         reader.onload = function() {
-            const preview = document.getElementById('image-preview');
+            const preview = document.getElementById('avatar-preview');
             preview.src = reader.result;
         };
 

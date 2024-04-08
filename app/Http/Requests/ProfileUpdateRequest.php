@@ -22,6 +22,7 @@ class ProfileUpdateRequest extends FormRequest
             'website' => ['nullable', 'string', 'url'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'image' => ['nullable'],
+            'avatar'=> ['nullable'],
         ];
     }
 }
