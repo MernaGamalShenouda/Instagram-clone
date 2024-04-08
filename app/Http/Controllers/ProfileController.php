@@ -44,7 +44,6 @@ class ProfileController extends Controller
         ]);
 
         $user->save();
-
         if ($request->hasFile('image')) {
 
             $image=$request->file('image') ;

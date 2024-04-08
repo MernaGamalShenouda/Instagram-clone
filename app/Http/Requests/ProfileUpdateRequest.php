@@ -21,7 +21,7 @@ class ProfileUpdateRequest extends FormRequest
             'gender' => ['required', 'string', 'in:male,female'],
             'website' => ['nullable', 'string', 'url'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-            'image' => ['nullable', 'image','mimes:jpeg,png,jpg,gif'],
+            'image' => ['nullable'],
         ];
     }
 }
