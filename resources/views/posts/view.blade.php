@@ -1,7 +1,6 @@
-
 @extends('layouts.main')
 
-@section('title','Profile')
+@section('title', 'Post')
 
 @section('profile_content')
                             <div class="card post-view-card">
@@ -160,14 +159,13 @@
                                     </div>
                                 </div>
                             </div>
-@endsection
-
+                        @endsection
 @section('post_script')
-<script> 
+<script>
     var comments = {!! json_encode($comments) !!};
 
     function submitForm(event) {
-        event.preventDefault(); 
+        event.preventDefault();
         var formData = new FormData(event.target);
         
         // Perform AJAX request
@@ -259,6 +257,8 @@
             });
         });
     });
+
+    
 
 </script>
 

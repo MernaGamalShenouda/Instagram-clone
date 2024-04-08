@@ -30,7 +30,11 @@ class PostController extends Controller
     // In your controller method
     public function create()
     {
-        return view('posts.create');
+
+
+        $userSigned = User::find(auth()->id());
+
+        return view('posts.create', ['user' => $userSigned]);
     }
 
     public function store(Request $request)

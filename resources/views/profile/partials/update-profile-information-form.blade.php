@@ -16,13 +16,46 @@
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
+        
+        <!-- <x-input-label for="avatar" :value="__('Avatar')" />
+        <div class="mt-1 flex items-center">
+            <div class="w-12 h-12 overflow-hidden rounded-full">
+                <img id="avatar-preview" class="w-full h-full object-cover" src="{{ $user->avatar_url ?? 'https://via.placeholder.com/150' }}" alt="Avatar Preview">
+            </div>
+            <input id="avatar" name="avatar" type="file" accept="image/*" class="sr-only" onchange="previewAvatar(event)">
+            <label for="avatar" class="cursor-pointer ml-2 text-sm text-indigo-600 hover:text-indigo-700">{{ __('Select Image') }}</label>
+        </div> -->
+        <!-- @cloudinaryJS -->
+        <x-input-label for="image" :value="__('Image')" />
+            <div class="mt-1 flex items-center">
+                <div class="w-12 h-12 overflow-hidden rounded-full">
+                    <img id="image-preview" class="w-full h-full object-cover rounded-full" src="{{ $user->image ? $user->image : $user->avatar }}" alt="Image Preview">
+                </div>
+                <input id="image" name="image" type="file" accept="image/*" class="sr-only" onchange="previewAvatar(event)">
+                <label for="image" class="cursor-pointer ml-2 text-sm text-indigo-600 hover:text-indigo-700">{{ __('Select Image') }}</label>
+            </div>
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-label for="full_name" :value="__('Name')" />
+            <x-text-input id="full_name" name="full_name" type="text" class="mt-1 block w-full" :value="old('name', $user->full_name)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('full_name')" />
         </div>
 
+        <div>
+            <x-input-label for="bio" :value="__('Bio')" />
+            <x-text-input id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio', $user->bio)" autofocus autocomplete="bio" />
+        </div>
+
+        <div>
+            <x-input-label for="gender" :value="__('Gender')" />
+            <x-text-input id="gender" name="gender" type="text" class="mt-1 block w-full" :value="old('gender', $user->gender)" required autofocus autocomplete="gender" />
+        </div>
+
+        <div>
+            <x-input-label for="website" :value="__('Website')" />
+            <x-text-input id="website" name="website" type="text" class="mt-1 block w-full" :value="old('website', $user->website)" autofocus autocomplete="website" />
+        </div>
+        
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
@@ -62,3 +95,23 @@
         </div>
     </form>
 </section>
+
+<script>
+    function previewAvatar(event) {
+        const input = event.target;
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const preview = document.getElementById('image-preview');
+            preview.src = reader.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+
+<style>
+    #avatar-preview {
+        object-fit: cover;
+    }
+</style>
