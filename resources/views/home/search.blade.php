@@ -62,8 +62,27 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <a href="#" class="btn btn-primary px-4" style="color:white">Follow</a>
+                                            @php
+                                                $isFollowingBack =
+                                                    auth()->check() && auth()->user()->following->contains($result);
+                                            @endphp
+                                            @if (auth()->check() && auth()->user()->id != $result->id)
+                                                @if ($isFollowingBack)
+                                                    <form action="{{ route('profile.unfollow', $result->username) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button class="btn btn-primary px-4 follow-button">Unfollow</button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('profile.follow', $result->username) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button class="btn btn-primary px-4 follow-button">Follow</button>
+                                                    </form>
+                                                @endif
+                                            @endif
                                         </div>
+
                                     </div>
                                 </div>
                             @endforeach

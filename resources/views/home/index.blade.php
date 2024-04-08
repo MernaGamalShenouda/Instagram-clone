@@ -273,12 +273,36 @@
                                                 </div>
                                             </div>
                                             <div class="col-2">
-                                                <a href="#" class="btn btn pr-4">Follow</a>
+
+                                                @if (auth()->check() && auth()->user()->id != $user->id)
+                                                    @if (auth()->user()->following->contains($suggestion))
+                                                        <form action="{{ route('profile.unfollow', $suggestion->username) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button class="follow-button">Unfollow</button>
+                                                        </form>
+                                                    @else
+                                                        @if ($isFollowingBack)
+                                                            <form action="{{ route('profile.follow', $suggestion->username) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <button class="follow-button">Follow back</button>
+                                                            </form>
+                                                        @else
+                                                            <form action="{{ route('profile.follow', $suggestion->username) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <button class="follow-button">Follow</button>
+                                                            </form>
+                                                        @endif
+                                                    @endif
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 @else
                                 @break
+
                             @endif
                         @endforeach
 
