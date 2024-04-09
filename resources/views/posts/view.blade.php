@@ -70,10 +70,15 @@
                             <p></p>
                         </div>
                     </div>
+                    
                     <div id='commentsContainer' class="p-0 m-0">
                         @foreach ($comments as $comment)
                             <div class="d-flex align-items-center mb-2">
-                                <img src="{{ $comment->user->avatar }}" alt="User Avatar" class="rounded-circle" style="width: 30px; height: 30px; margin-right:12px">
+                            @php
+                                $CommentImage="https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($comment->user->image)
+                            @endphp
+                                <img src="{{ $comment->user->image ? $CommentImage : $comment->user->avatar }}" alt="User Avatar" class="rounded-circle" style="width: 30px; height: 30px; margin-right:12px">
+
                                 <div>
                                     <p class="m-0"><strong>{{ $comment->user->username }}</strong>: {{ $comment->content }}</p>
                                     <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
@@ -82,7 +87,7 @@
                         @endforeach
                     </div>
                 </div>
-
+                
                 <!-- Comments & Likes -->
                 <div
                     class="border col-md-12 post-likes-section d-flex flex-column align-items-center">
@@ -131,7 +136,7 @@
                 <form method="POST" action="{{ route('posts.storeComment') }}" id='commentForm'>
                     @csrf <!-- CSRF token -->
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="updated_at" id="updated_at">
                     <input type="hidden" name="created_at" id="created_at">
 

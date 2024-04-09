@@ -5,12 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('
+app.name
+', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/1409/1409946.png" type="image/x-icon">
+        <link rel="preconnect" href="
+https://fonts.bunny.net/
+">
+        <link href="
+https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap
+" rel="stylesheet" />
+        <link rel="icon" href="
+https://cdn-icons-png.flaticon.com/128/1409/1409946.png
+" type="image/x-icon">
         
 
         <!-- Scripts -->
@@ -28,9 +36,13 @@
         <div class="w-full md:w-1/4 text-center ">
         <h2 class="text-xl">Get the app.</h2>
         <div class="mt-2 flex justify-center" >
-            <a href="https://play.google.com/store/apps/details?id=com.instagram.android&hl=en_US&gl=US" class="inline-block" style="height: 100px;">
+            <a href="
+https://play.google.com/store/apps/details?id=com.instagram.android&hl=en_US&gl=US
+" class="inline-block" style="height: 100px;">
             
-            <svg width="150px" height="160px" viewBox="0 0 135 135" id="Layer_1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="150px" height="160px" viewBox="0 0 135 135" id="Layer_1" xmlns="
+http://www.w3.org/2000/svg
+">
 
             <style>.st0{fill:#a6a6a6}.st1{stroke:#ffffff;stroke-width:.2;stroke-miterlimit:10}.st1,.st2{fill:#fff}.st3{fill:url(#SVGID_1_)}.st4{fill:url(#SVGID_2_)}.st5{fill:url(#SVGID_3_)}.st6{fill:url(#SVGID_4_)}.st7,.st8,.st9{opacity:.2;enable-background:new}.st8,.st9{opacity:.12}.st9{opacity:.25;fill:#fff}</style>
 
@@ -113,7 +125,9 @@
             </svg> 
             </a>
 
-            <a href="https://www.microsoft.com/store/apps/9nblggh481gg" class="inline-block " style="height: 100px;">
+            <a href="
+https://www.microsoft.com/store/apps/9nblggh481gg
+" class="inline-block " style="height: 100px;">
                 <img src="{{ asset('images/logo/microsoft.png') }}" class="rounded-lg w-40 h-11 mt-1 ml-5">
             </a>
         </div>
@@ -122,20 +136,48 @@
         
         
             <div class="container mx-auto flex justify-center items-center flex-wrap">
-                <a href="https://about.meta.com/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Meta</a>
-                <a href="https://about.instagram.com/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">About</a>
-                <a href="https://www.instagram.com/blog/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Blog</a>
-                <a href="https://www.instagram.com/jobs/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Jobs</a>
-                <a href="https://help.instagram.com/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Help</a>
-                <a href="https://developers.facebook.com/docs/instagram/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">API</a>
-                <a href="https://www.instagram.com/legal/privacy/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Privacy</a>
-                <a href="https://www.instagram.com/explore/locations/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Locations</a>
-                <a href="https://lite.instagram.com/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Instagram Lite</a>
-                <a href="https://www.instagram.com/direct/inbox/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Threads</a>
-                <a href="https://www.instagram.com/accounts/login/?next=/accounts/emailsignup/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Contact</a>
-                <a href="https://www.instagram.com/legal/terms/non-users/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Uploading & Non-Users</a>
-                <a href="https://www.instagram.com/about/meta/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Meta</a>
-                <a href="https://www.instagram.com/about/verified-badge/" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Meta Verified</a><br> </div>
+                <a href="
+https://about.meta.com/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Meta</a>
+                <a href="
+https://about.instagram.com/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">About</a>
+                <a href="
+https://www.instagram.com/blog/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Blog</a>
+                <a href="
+https://www.instagram.com/jobs/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Jobs</a>
+                <a href="
+https://help.instagram.com/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Help</a>
+                <a href="
+https://developers.facebook.com/docs/instagram/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">API</a>
+                <a href="
+https://www.instagram.com/legal/privacy/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Privacy</a>
+                <a href="
+https://www.instagram.com/explore/locations/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Locations</a>
+                <a href="
+https://lite.instagram.com/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Instagram Lite</a>
+                <a href="
+https://www.instagram.com/direct/inbox/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Threads</a>
+                <a href="
+https://www.instagram.com/accounts/login/?next=/accounts/emailsignup/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Contact</a>
+                <a href="
+https://www.instagram.com/legal/terms/non-users/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Uploading & Non-Users</a>
+                <a href="
+https://www.instagram.com/about/meta/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Meta</a>
+                <a href="
+https://www.instagram.com/about/verified-badge/
+" class="inline-block text-gray-500 mx-2 mb-2 hover:text-gray-400">Meta Verified</a><br> </div>
             </div> 
             
             <div class="text-center mt-4"> 
@@ -143,4 +185,4 @@
             </div> 
 </footer> 
     </body>
-</html>
+</html> 

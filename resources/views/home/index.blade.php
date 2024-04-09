@@ -192,7 +192,7 @@
                                                         <input type="hidden" name="post_id"
                                                             value="{{ $post->id }}">
                                                         <input type="hidden" name="user_id"
-                                                            value="{{ $user->id }}">
+                                                            value="{{ Auth::user()->id }}">
                                                         <div class="form-row align-items-center flex-dir">
                                                             <div class="col">
                                                                 <input type="text" class="form-control" name="content"
@@ -242,26 +242,28 @@
                                 }
 
                             @endphp
-                            <div class="col-12 row">
-                                <div class="row col-12 d-flex justify-content-start align-items-center">
-                                    <div class="col-12 row">
-                                        <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
-                                            class="row col-12 align-items-center justify-content-center">
-                                            <div class="img col-3 ">
-                                                <img src="{{ Auth::user()->image ? $image : Auth::user()->avatar }}"
-                                                    class="rounded-circle profileImage" alt="Profile Image">
-                                            </div>
-
-                                            <div id="full_name" class="col-9">
-                                                <h6>{{ Auth::user()->full_name }}</h6>
-                                            </div>
-                                            <div id="username" class="col-6">{{ Auth::user()->username }}</div>
-                                        </a>
+                            
+                            <div class="media">
+                                <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}">
+                                    <img src="{{ Auth::user()->image ? $image : Auth::user()->avatar }}" class="mr-3 rounded-circle avatar-profile" alt="Avatar">
+                                </a>
+                                <div class="media-body d-flex align-items-center">
+                                    <div>
+                                        <h6 class="mt-0 mb-1">
+                                            <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
+                                                class="user-name">{{ Auth::user()->username }}</a>
+                                        </h6>
+                                        <p class="text-muted mb-0">
+                                            <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
+                                                class="full-name">{{ Auth::user()->full_name }}</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="col-2">
-                                <a href="#" class="btn btn pr-4">Switch</a>
+                                <a href="#" class="btn btn pr-4" style="margin-left:-20px;">Switch</a>
                             </div>
                         </div>
                     </div>
@@ -271,12 +273,12 @@
                             <span><b>Suggestions For You</b></span>
                             <a href="{{ route('home.suggestions') }}"><b>See All</b></a>
                         </div>
-                        <div class="col-12 row">
+                        <div class="col-12 row" style="width:400px; padding-left:30px;">
                             @foreach ($suggestions as $key => $suggestion)
                                 @if ($key < 5)
                                     <div class="row col-12">
                                         <div
-                                            class=" col-12 profile-bar p-3 d-flex justify-content-around align-items-center">
+                                            class=" col-12 profile-bar p-3 d-flex justify-content-between align-items-center">
                                             @php
                                                 if ($suggestion->image) {
                                                     $image =
@@ -285,28 +287,51 @@
                                                 }
 
                                             @endphp
-                                            <div class=" col-12 row">
-                                                <div class="col-12 row d-flex justify-content-start align-items-center">
-                                                    <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}"
-                                                        class="col-12 row justify-content-center align-items-center">
-                                                        <div class="img col-3">
+                                           
+                            <div class="media">
+                                <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}">
+                                    <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}" class="mr-3 rounded-circle avatar-profile" alt="Avatar">
+                                </a>
+                                <div class="media-body d-flex align-items-center">
+                                    <div>
+                                        <h6 class="mt-0 mb-1">
+                                            <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}"
+                                                class="user-name">{{ $suggestion->username }}</a>
+                                        </h6>
+                                        <p class="text-muted mb-0">
+                                            <a href="{{route('profile.show', ['username' => $suggestion->username]) }}"
+                                                class="full-name">{{ $suggestion->full_name }}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>                                      
 
-                                                            <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}"
-                                                                class="rounded-circle profileImage" alt="Profile Image">
-                                                        </div>
-
-                                                        <div id="full_name" class="col-9">
-                                                            <h6>{{ $suggestion->full_name }}</h6>
-                                                        </div>
-                                                        <div id="username" class="col-6">{{ $suggestion->username }}
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                       
-                                            <div class="col-2">
+                                            
+                                            <!-- <div class="col-2">
                                                 <a href="#" class="btn btn pr-4">Follow</a>
-                                            </div>
+                                            </div> -->
+
+                                            <div class="col-3">
+                                            @php
+                                                $isFollowingBack =
+                                                    auth()->check() && auth()->user()->following->contains($suggestion);
+                                            @endphp
+                                            @if (auth()->check() && auth()->user()->id != $suggestion->id)
+                                                @if ($isFollowingBack)
+                                                    <form action="{{ route('profile.unfollow', $suggestion->username) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button class="btn btn-primary px-4 follow-button">Unfollow</button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('profile.follow', $suggestion->username) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button class="btn btn-primary px-4 follow-button">Follow</button>
+                                                    </form>
+                                                @endif
+                                            @endif
+                                        </div> 
                                         </div>
                                     </div>
                     
@@ -325,6 +350,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="{{ asset('js/home/home.js') }}"></script>
+
+
+    <script>
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    window.addEventListener('load', function() {
+        var scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            setTimeout(function() {
+                window.scrollTo(0, parseInt(scrollPosition));
+            }, 0);
+        }
+    });
+    </script> 
 @endsection
 </body>
 

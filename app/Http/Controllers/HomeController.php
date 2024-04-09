@@ -29,10 +29,13 @@ class HomeController extends Controller
                     ->get();
 
 
-        $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
-        $suggestions = User::whereIn('id', $followedIds)
-                        ->where('id', '!=', $user->id)
-                        ->get();
+        // $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
+        // $suggestions = User::whereIn('id', $followedIds)
+        //                 ->where('id', '!=', $user->id)
+        //                 ->get();
+
+        $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id')->toArray();
+        $suggestions = User::whereNotIn('id', array_merge($followedIds, [$user->id]))->get(); 
 
 
 

@@ -54,10 +54,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/tags/{tag_id}', [TagController::class, 'view'])->name('tags.view');
     Route::get('/instagram/search', [HomeController::class, 'search'])->name('home.search');
+    Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');
 
 });
 
-    Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');
 
     //Admin Page Routes
     Route::view('/admin', 'welcomeAdmin')->name('admin');

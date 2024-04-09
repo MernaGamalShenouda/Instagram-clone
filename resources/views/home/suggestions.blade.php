@@ -35,7 +35,10 @@
                             <div class=" col-9 d-flex justify-content-start align-items-center profile-details">
                                 <div class="col-2">
                                     <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}">
-                                        <img src="{{ $suggestion->avatar }}" class="rounded-circle profileImage"
+                                    @php
+                                        $image="https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($suggestion->image)
+                                    @endphp
+                                        <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}" class="rounded-circle profileImage"
                                             alt="Profile Image">
                                     </a>
                                 </div>
