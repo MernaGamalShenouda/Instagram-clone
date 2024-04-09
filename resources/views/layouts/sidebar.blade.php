@@ -114,7 +114,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" id="searchLink">
+                                <a href="{{route('home.search')}}" class="nav-link" id="searchLink">
                                     <i class="bi bi-search"></i> Search
                                 </a>
                                 <ul class="dropdown-menu mt-2" aria-labelledby="searchLink" id="searchDropdown">

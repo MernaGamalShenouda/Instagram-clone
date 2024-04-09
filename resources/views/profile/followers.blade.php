@@ -3,9 +3,12 @@
 </div>
 <div class="modal-body">
     @foreach($followers as $follower)
+            @php
+            $image="https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($follower->image)
+            @endphp
         <div class="media">
             <a href="{{ route('profile.show', $follower->username) }}">
-                <img src="{{ $follower->avatar }}" class="mr-3 rounded-circle avatar-profile" alt="Avatar">
+                <img src="{{ $follower->image?$image:$follower->avatar }}" class="mr-3 rounded-circle avatar-profile" alt="Avatar">
             </a>
             <div class="media-body d-flex align-items-center">
                 <div>

@@ -80,24 +80,26 @@
                             <p>{{ $user->username }}</p>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="container-posts">
                     @foreach ($posts as $post)
-                    @php
-                    if($post->user->image){
-                        $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($post->user->image);
-                    }
-            
-                    @endphp
+                        @php
+                            if ($post->user->image) {
+                                $image =
+                                    'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
+                                    json_decode($post->user->image);
+                            }
+
+                        @endphp
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title d-flex align-items-center">
                                     <div class="d-flex align-items-center">
                                         <div class="avatar">
                                             <a href="{{ route('profile.show', ['username' => $post->user->username]) }}">
-                                                <img src="{{ $post->user->image ? $image : $post->user->avatar }}" alt="{{ $post->user->username }}"
-                                                    class="img-fluid">
+                                                <img src="{{ $post->user->image ? $image : $post->user->avatar }}"
+                                                    alt="{{ $post->user->username }}" class="img-fluid w-100">
                                             </a>
                                         </div>
                                         <a href="{{ route('profile.show', ['username' => $post->user->username]) }}">
@@ -108,7 +110,7 @@
                                             </span>
                                         </a>
                                         <span>
-                                            {{ $post->created_at?$post->created_at->diffForHumans(null, true):"" }}</span>
+                                            {{ $post->created_at ? $post->created_at->diffForHumans(null, true) : '' }}</span>
                                     </div>
                                     <button type="button" class="btn btn-sm rounded-circle ellipsis">
                                         <i class="fas fa-ellipsis-h"></i>
@@ -228,29 +230,34 @@
 
                 </div>
             </div>
-            <div class='col-3 suggest sticky-top'>
+            <div class='col-3 suggest sticky-top '>
                 <div class="sticky-top">
                     <div class="row">
                         <div class=" col-12 profile-bar p-3 d-flex justify-content-around align-items-center">
                             @php
-                            if($user->image){
-                                $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($user->image);
-                            }
-                    
+                                if (Auth::user()->image) {
+                                    $image =
+                                        'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
+                                        json_decode(Auth::user()->image);
+                                }
+
                             @endphp
-                    
-                            <div class=" col-9 d-flex justify-content-start align-items-center">
-                                <div class="col-4">
-                                    <a href="{{ route('profile.show', ['username' => $user->username]) }}">
-                                        <img src="{{ $user->image ? $image : $user->avatar }}" class="rounded-circle profileImage"
-                                            alt="Profile Image">
-                                </div>
-                                <div class=" col-9">
-                                    <div id="full_name" class="col-12">
-                                        <h6>{{ Auth::user()->full_name }}</h6>
+                            <div class="col-12 row">
+                                <div class="row col-12 d-flex justify-content-start align-items-center">
+                                    <div class="col-12 row">
+                                        <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
+                                            class="row col-12 align-items-center justify-content-center">
+                                            <div class="img col-3 ">
+                                                <img src="{{ Auth::user()->image ? $image : Auth::user()->avatar }}"
+                                                    class="rounded-circle profileImage" alt="Profile Image">
+                                            </div>
+
+                                            <div id="full_name" class="col-9">
+                                                <h6>{{ Auth::user()->full_name }}</h6>
+                                            </div>
+                                            <div id="username" class="col-6">{{ Auth::user()->username }}</div>
+                                        </a>
                                     </div>
-                                    <div id="username" class="col-12">{{ Auth::user()->username }}</div>
-                                    </a>
                                 </div>
                             </div>
                             <div class="col-2">
@@ -264,40 +271,45 @@
                             <span><b>Suggestions For You</b></span>
                             <a href="{{ route('home.suggestions') }}"><b>See All</b></a>
                         </div>
-                        <div class="container">
+                        <div class="col-12 row">
                             @foreach ($suggestions as $key => $suggestion)
                                 @if ($key < 5)
-                                    <div class="row">
+                                    <div class="row col-12">
                                         <div
                                             class=" col-12 profile-bar p-3 d-flex justify-content-around align-items-center">
                                             @php
-                                            if($suggestion->image){
-                                                $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($suggestion->image);
-                                            }
-                                    
-                                            @endphp
-                                            <div class=" col-9 d-flex justify-content-start align-items-center">
-                                                <div class="col-4">
-                                                    <a
-                                                        href="{{ route('profile.show', ['username' => $suggestion->username]) }}">
+                                                if ($suggestion->image) {
+                                                    $image =
+                                                        'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
+                                                        json_decode($suggestion->image);
+                                                }
 
-                                                        <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}"
-                                                            class="rounded-circle profileImage" alt="Profile Image">
-                                                </div>
-                                                <div class=" col-9 ">
-                                                    <div id="full_name" class="col-12">
-                                                        <h6>{{ $suggestion->full_name }}</h6>
-                                                    </div>
-                                                    <div id="username" class="col-12">{{ $suggestion->username }}
-                                                    </div>
+                                            @endphp
+                                            <div class=" col-12 row">
+                                                <div class="col-12 row d-flex justify-content-start align-items-center">
+                                                    <a href="{{ route('profile.show', ['username' => $suggestion->username]) }}"
+                                                        class="col-12 row justify-content-center align-items-center">
+                                                        <div class="img col-3">
+
+                                                            <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}"
+                                                                class="rounded-circle profileImage" alt="Profile Image">
+                                                        </div>
+
+                                                        <div id="full_name" class="col-9">
+                                                            <h6>{{ $suggestion->full_name }}</h6>
+                                                        </div>
+                                                        <div id="username" class="col-6">{{ $suggestion->username }}
+                                                        </div>
                                                     </a>
                                                 </div>
                                             </div>
+                                       
                                             <div class="col-2">
                                                 <a href="#" class="btn btn pr-4">Follow</a>
                                             </div>
                                         </div>
                                     </div>
+                    
                                 @else
                                 @break
                             @endif

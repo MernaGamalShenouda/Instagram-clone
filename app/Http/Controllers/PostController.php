@@ -177,7 +177,7 @@ class PostController extends Controller
         $comments = \App\Models\Comment::where('post_id', $id)->with('user')->get();
 
         $user = User::find($post->user_id);
-        $user->updateAvatar($user->id);
+        // $user->updateAvatar($user->id);
 
         $userSigned = User::find(auth()->id());
 

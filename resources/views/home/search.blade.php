@@ -49,7 +49,10 @@
 
                                             <div class="col-2">
                                                 <a href="{{ route('profile.show', ['username' => $result->username]) }}">
-                                                    <img src="{{ $result->avatar }}" class="rounded-circle profileImage"
+                                                    @php
+                                                    $image="https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($result->image);
+                                                    @endphp
+                                                    <img src="{{ $result->image ? $image : $result->avatar }}" class="rounded-circle profileImage"
                                                         alt="Profile Image">
                                                 </a>
                                             </div>

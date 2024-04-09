@@ -43,9 +43,12 @@
 
             <div class="col-md-6 d-flex flex-column justify-content-between align-items-start">
                 <!-- User Info  -->
+                @php
+                $image="https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($post->user->image)
+                @endphp
                 <div class="border col-md-12 post-userInfo-section">
                     <div class="post-userInfo-content">
-                        <img src="{{ $post->user->avatar }}"
+                        <img src="{{ $post->user->image?$image:$post->user->avatar }}"
                             class="img-fluid rounded avatar-image" alt="User Avatar">
                         <div>
                             <a href="/profile/{{ $post->user->username }}" class="d-inline-block text-decoration-none text-dark">
