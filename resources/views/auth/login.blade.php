@@ -1,7 +1,7 @@
 
 <x-guest-layout>
-<div class="flex min-h-screen sm:justify-center justify-center">
-    <div class="w-1/2  relative">
+<div class="flex min-h-screen sm:justify-center justify-center items-center">
+    <div class="w-1/2  relative" >
 
         <img src="{{ asset('images/logo/phones.png') }}" style="height:581px; margin-top:80px; ">
 

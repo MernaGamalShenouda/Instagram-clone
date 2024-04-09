@@ -30,51 +30,51 @@
                     <div class="row story-circles">
                         <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(1)->username]) }}">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(37)->username]) }}">
                                     <img src="{{ asset('images\home\stories\flower.jpg') }}" alt="User 1"
                                         class="img-fluid">
                                 </a>
                             </div>
-                            <p>{{ \App\Models\User::find(1)->username }}</p>
+                            <p>{{ \App\Models\User::find(37)->username }}</p>
                         </div>
                         <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(1)->username]) }}">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(37)->username]) }}">
 
                                     <img src="{{ asset('images\home\stories\Spider.jpeg') }}" alt="User 2"
                                         class="img-fluid">
                                 </a>
                             </div>
-                            <p>{{ \App\Models\User::find(1)->username }} </p>
+                            <p>{{ \App\Models\User::find(37)->username }} </p>
                         </div>
                         <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(1)->username]) }}">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(37)->username]) }}">
 
                                     <img src="{{ asset('images\home\stories\Hacker.jpeg') }}" alt="User 3"
                                         class="img-fluid">
                                 </a>
                             </div>
-                            <p>{{ \App\Models\User::find(1)->username }} </p>
+                            <p>{{ \App\Models\User::find(37)->username }} </p>
                         </div>
                         <div class="col-1 story mx-3">
                             <div class="story-circle">
-                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(1)->username]) }}">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(37)->username]) }}">
                                     <img src="{{ asset('images\home\stories\girl.jpeg') }}" alt="User 4"
                                         class="img-fluid">
                                 </a>
                             </div>
-                            <p>{{ \App\Models\User::find(1)->username }}</p>
+                            <p>{{ \App\Models\User::find(37)->username }}</p>
                         </div>
                         <div class="col-1 story mx-3">
                             <div class="story-circle">
 
-                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(1)->username]) }}">
+                                <a href="{{ route('profile.show', ['username' => \App\Models\User::find(37)->username]) }}">
                                     <img src="{{ asset('images\home\stories\Tom.jpeg') }}" alt="User 5"
                                         class="img-fluid">
                                 </a>
                             </div>
-                            <p>{{ \App\Models\User::find(1)->username }}</p>
+                            <p>{{ \App\Models\User::find(37)->username }}</p>
                         </div>
                     </div>
                 </div>
