@@ -100,7 +100,8 @@
                                                     class="img-fluid">
                                             </a>
                                         </div>
-                                        <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}">
+                                        <a href="{{ route('profile.show', ['username' => $post->user->username]) }}">
+
                                             <span class="username mx-2">
 
                                                 <b>{{ $post->user->username }}</b>
@@ -199,9 +200,19 @@
                                                                 <button type="submit"
                                                                     class="btn btn-primary btn-sm add-comment"
                                                                     id="postButton" style="display: none;">Post</button>
-                                                                <button class="trigger"><i
-                                                                        class="fa-regular fa-face-grin"></i>
+                                                                <button class="btn dropdown-toggle" type="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    😊 <!-- Default emoji icon -->
                                                                 </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" href="#">😊</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item" href="#">❤️</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item" href="#">👍</a>
+                                                                    </li>
+                                                                    <!-- Add more emoji items as needed -->
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -217,9 +228,8 @@
 
                 </div>
             </div>
-            <div class='col-3 suggest'>
+            <div class='col-3 suggest sticky-top'>
                 <div class="sticky-top">
-
                     <div class="row">
                         <div class=" col-12 profile-bar p-3 d-flex justify-content-around align-items-center">
                             @php
@@ -235,11 +245,11 @@
                                         <img src="{{ $user->image ? $image : $user->avatar }}" class="rounded-circle profileImage"
                                             alt="Profile Image">
                                 </div>
-                                <div class=" col-6">
+                                <div class=" col-9">
                                     <div id="full_name" class="col-12">
-                                        <h6>{{ $user->full_name }}</h6>
+                                        <h6>{{ Auth::user()->full_name }}</h6>
                                     </div>
-                                    <div id="username" class="col-12">{{ $user->username }}</div>
+                                    <div id="username" class="col-12">{{ Auth::user()->username }}</div>
                                     </a>
                                 </div>
                             </div>
@@ -249,10 +259,10 @@
                         </div>
                     </div>
 
-                    <div class="suggestions mt-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Suggestions For You</span>
-                            <a href="{{ route('home.suggestions') }}">See All</a>
+                    <div class="suggestions row">
+                        <div class="d-flex justify-content-around align-items-center">
+                            <span><b>Suggestions For You</b></span>
+                            <a href="{{ route('home.suggestions') }}"><b>See All</b></a>
                         </div>
                         <div class="container">
                             @foreach ($suggestions as $key => $suggestion)
@@ -274,11 +284,12 @@
                                                         <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}"
                                                             class="rounded-circle profileImage" alt="Profile Image">
                                                 </div>
-                                                <div class=" col-6">
+                                                <div class=" col-9 ">
                                                     <div id="full_name" class="col-12">
                                                         <h6>{{ $suggestion->full_name }}</h6>
                                                     </div>
-                                                    <div id="username" class="col-12">{{ $suggestion->username }}</div>
+                                                    <div id="username" class="col-12">{{ $suggestion->username }}
+                                                    </div>
                                                     </a>
                                                 </div>
                                             </div>
@@ -297,14 +308,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4/dist/emoji-button.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="{{ asset('js/home/home.js') }}"></script>
-    <script src="{{ asset('js/home/emojy.js') }}"></script>
 @endsection
 </body>
 

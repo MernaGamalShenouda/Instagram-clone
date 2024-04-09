@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tags/suggest', [PostController::class, 'suggestTags'])->name('tags.suggest');
 
     Route::get('/tags/{tag_id}', [TagController::class, 'view'])->name('tags.view');
-    Route::post('/instagram/search', [HomeController::class, 'search'])->name('home.search');
+    Route::get('/instagram/search', [HomeController::class, 'search'])->name('home.search');
 
 });
 

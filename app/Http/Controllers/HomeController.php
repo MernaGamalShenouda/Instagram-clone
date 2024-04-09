@@ -35,6 +35,7 @@ class HomeController extends Controller
                         ->get();
 
 
+
         return view('home.index', ['user' => $user, 'posts' => $posts, 'suggestions' => $suggestions]);
     }
 
@@ -88,8 +89,8 @@ class HomeController extends Controller
         ]);
 
         $existingBookmark = SavedPost::where('post_id', $request->input('post_id'))
-                             ->where('user_id', $request->input('user_id'))
-                             ->first();
+                            ->where('user_id', $request->input('user_id'))
+                            ->first();
 
         if ($existingBookmark) {
             $existingBookmark->delete();
@@ -114,15 +115,16 @@ class HomeController extends Controller
 
         return view('home.suggestions', ['suggestions' => $suggestions]);
     }
-    public function search(Request $request){
-        $query = $request->input('query');
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+    $results = User::where('username', 'like', "%$search%")
+    ->orWhere('full_name', 'like', "%$search%")
+    ->get();
 
-        $results = User::where('username', 'like', '%' . $query . '%')
-                        ->orWhere('full_name', 'like', '%' . $query . '%')
-                        ->get();
+    return view('home.search', ['results' => $results]);
+}
 
-        return redirect()->route('home.index', ['results' => $results]);
-    }
 
 
 }

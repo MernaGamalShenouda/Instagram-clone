@@ -105,6 +105,10 @@
                     <div class="d-flex flex-column align-items-start px-3  mt-5 ps-1">
                         <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
                             title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
+                <div class="position-fixed">
+                    <div class="d-flex flex-column align-items-start px-3  mt-5 ps-1">
+                        <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+                            title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
 
                         <ul class="nav flex-column mb-0">
                             <li class="nav-item">
@@ -204,7 +208,7 @@
         </div>
     </div>
 
-    {{-- <!-- Search Modal -->
+    <!-- Search Modal -->  
 
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog">

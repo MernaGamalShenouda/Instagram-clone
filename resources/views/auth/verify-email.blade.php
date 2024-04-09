@@ -28,7 +28,7 @@
 
     <div class="mt-4 flex items-center justify-center">
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
 
             <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
