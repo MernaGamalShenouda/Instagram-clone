@@ -23,6 +23,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('css/posts/post_view.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/home/sidebar.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -203,6 +204,49 @@
         </div>
     </div>
 
+    <!-- Search Modal -->
+
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <form action="{{ route('home.search') }}" method="post" class="form form-inline">
+                            @csrf
+                            @method('POST')
+                            <input id="searchInput" type="text" class="form-control" placeholder="Search"
+                                aria-label="Search term" aria-describedby="button-addon2">
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                        </form>
+
+
+
+                    </div>
+                    <div id="searchResults">
+                        @if (session('results'))
+                            <div class="alert alert-success">
+                                Search Results:
+                                <ul>
+                                    @foreach (session('results') as $result)
+                                        <li>{{ $result->column_name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/home/modal.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     @yield('script')

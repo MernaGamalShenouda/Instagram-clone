@@ -143,7 +143,9 @@
 
 
                                             <button type="button" class="btn btn-sm">
-                                                <i class="far fa-comment"></i>
+                                                <a href="{{ route('posts.view', ['post_id' => $post->id]) }}">
+                                                    <i class="far fa-comment"></i>
+                                                </a>
                                             </button>
                                             <button type="button" class="btn btn-sm">
                                                 <i class="fas fa-share"></i>
@@ -171,8 +173,8 @@
                                                 <span>{{ strlen($post->content) > 20 ? substr($post->content, 0, 20) . '...' : $post->content }}</span>
                                                 <div class="comments">
                                                     <div class="comment">
-                                                        <a href="#" data-toggle="modal"
-                                                            data-target="#exampleModal">
+                                                        <a href="{{ route('posts.view', ['post_id' => $post->id]) }}"
+                                                            data-toggle="modal" data-target="#exampleModal">
                                                             View all {{ $post->comments_count }} comments
                                                         </a>
                                                     </div>
@@ -228,26 +230,26 @@
                             @endphp
                     
                             <div class=" col-9 d-flex justify-content-start align-items-center">
-                                <div class="col-5">
+                                <div class="col-4">
                                     <a href="{{ route('profile.show', ['username' => $user->username]) }}">
                                         <img src="{{ $user->image ? $image : $user->avatar }}" class="rounded-circle profileImage"
                                             alt="Profile Image">
                                 </div>
-                                <div class="px-3 col-7">
-                                    <div id="full_name">
+                                <div class=" col-6">
+                                    <div id="full_name" class="col-12">
                                         <h6>{{ $user->full_name }}</h6>
                                     </div>
-                                    <div id="username">{{ $user->username }}</div>
+                                    <div id="username" class="col-12">{{ $user->username }}</div>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <a href="#" class="btn btn px-4">Switch</a>
+                            <div class="col-2">
+                                <a href="#" class="btn btn pr-4">Switch</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="suggestions mt-5">
+                    <div class="suggestions mt-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <span>Suggestions For You</span>
                             <a href="{{ route('home.suggestions') }}">See All</a>
@@ -255,9 +257,9 @@
                         <div class="container">
                             @foreach ($suggestions as $key => $suggestion)
                                 @if ($key < 5)
-                                    <div class="row ">
+                                    <div class="row">
                                         <div
-                                            class=" col-10 profile-bar p-3 d-flex justify-content-around align-items-center">
+                                            class=" col-12 profile-bar p-3 d-flex justify-content-around align-items-center">
                                             @php
                                             if($suggestion->image){
                                                 $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($suggestion->image);
@@ -272,14 +274,16 @@
                                                         <img src="{{ $suggestion->image ? $image : $suggestion->avatar }}"
                                                             class="rounded-circle profileImage" alt="Profile Image">
                                                 </div>
-                                                <div class="px-3 col-8">
-                                                    <div id="full_name"><b>{{ $suggestion->full_name }}</b></div>
-                                                    <div id="username">{{ $suggestion->username }}</div>
+                                                <div class=" col-6">
+                                                    <div id="full_name" class="col-12">
+                                                        <h6>{{ $suggestion->full_name }}</h6>
+                                                    </div>
+                                                    <div id="username" class="col-12">{{ $suggestion->username }}</div>
+                                                    </a>
                                                 </div>
-                                                </a>
                                             </div>
                                             <div class="col-2">
-                                                <a href="#" class="btn px-4">Follow</a>
+                                                <a href="#" class="btn btn pr-4">Follow</a>
                                             </div>
                                         </div>
                                     </div>

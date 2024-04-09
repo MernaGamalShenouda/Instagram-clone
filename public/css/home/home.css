@@ -37,18 +37,14 @@
     align-items: center;
     flex-direction: column;
 }
+
 .card {
     margin: 1em;
-    border: none;
+    border: none !important;
     transition: box-shadow 0.3s ease;
-
-
 }
 .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    min-height: 900px !important;
     overflow: hidden !important;
 }
 .fa-heart {
@@ -103,8 +99,11 @@
     padding: 0 !important;
     margin: 0 !important;
 }
-a, a:hover{
-    text-decoration: none;
+a,
+a:hover{
+    color: black !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
 }
 .icons button{
     background-color: transparent;
