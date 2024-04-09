@@ -29,12 +29,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if($request->email == 'admin'){
+        if($request->email == 'admin@gmail.com'){
             return redirect('/admin');
         }
 
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect('/instagram');
     }
 
     /**
@@ -48,6 +47,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
