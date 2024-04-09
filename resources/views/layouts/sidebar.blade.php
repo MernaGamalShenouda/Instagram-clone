@@ -204,7 +204,7 @@
         </div>
     </div>
 
-    <!-- Search Modal -->
+    {{-- <!-- Search Modal -->
 
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -246,7 +246,7 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/home/modal.js') }}"></script>
+    <script src="{{ asset('js/home/modal.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     @yield('script')
