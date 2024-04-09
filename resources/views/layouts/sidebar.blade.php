@@ -33,7 +33,7 @@
             background-color: white;
         }
 
-        .sidebar{
+        .sidebar {
             width: 230px;
         }
 
@@ -91,99 +91,105 @@
             color: #333;
         }
     </style>
+    @yield('styles')
 </head>
 
 <body>
+
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 col-lg-2 ps-0  sidebar border-end ms-3">
                 <div class="position-fixed">
-                <div class="d-flex flex-column align-items-start px-3  mt-5 ps-1">
-                    <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-                        title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
+                    <div class="d-flex flex-column align-items-start px-3  mt-5 ps-1">
+                        <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+                            title="Instagram" alt="Instagram Logo" class="img-fluid mb-4">
 
-                    <ul class="nav flex-column mb-0">
-                        <li class="nav-item">
-                            <a href="{{ route('home.index') }}" class="nav-link">
-                                <img src="/assets/home.png" alt="">
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="searchLink">
-                                <i class="bi bi-search"></i> Search
-                            </a>
-                            <ul class="dropdown-menu mt-2" aria-labelledby="searchLink" id="searchDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Search
-                                        Users</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-hash"></i> Search Tags</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <img src="/assets/social.png" alt="">
-                                <span>Explore</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <img src="/assets/video.png" alt="">
-                                <span>Reels</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <img src="/assets/chat.png" alt="">
-                                <span>Messages</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="notificationLink">
-                                <img src="/assets/heart.png" alt="">
-                                <span>Notifications</span>
-                            </a>
-                            <ul class="dropdown-menu mt-2" aria-labelledby="notificationLink" id="notificationDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-heart"></i> Likes</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-chat-left-dots"></i>
-                                        Comments</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <img src="/assets/more.png" alt="">
-                                <span>Create</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
-                                class="nav-link">
-                                <i class="bi bi-person"></i> Profile
-                            </a>
-                        </li>
+                        <ul class="nav flex-column mb-0">
+                            <li class="nav-item">
+                                <a href="{{ route('home.index') }}" class="nav-link">
+                                    <img src="/assets/home.png" alt="">
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" id="searchLink">
+                                    <i class="bi bi-search"></i> Search
+                                </a>
+                                <ul class="dropdown-menu mt-2" aria-labelledby="searchLink" id="searchDropdown">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Search
+                                            Users</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-hash"></i> Search
+                                            Tags</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <img src="/assets/social.png" alt="">
+                                    <span>Explore</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <img src="/assets/video.png" alt="">
+                                    <span>Reels</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <img src="/assets/chat.png" alt="">
+                                    <span>Messages</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" id="notificationLink">
+                                    <img src="/assets/heart.png" alt="">
+                                    <span>Notifications</span>
+                                </a>
+                                <ul class="dropdown-menu mt-2" aria-labelledby="notificationLink"
+                                    id="notificationDropdown">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-heart"></i> Likes</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-chat-left-dots"></i>
+                                            Comments</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('posts.create') }}" class="nav-link">
+                                    <img src="/assets/more.png" alt="">
+                                    <span>Create</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
+                                    class="nav-link">
+                                    <i class="bi bi-person"></i> Profile
+                                </a>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" role="button" id="moreDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-list"></i> More
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="moreDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
-                                <li><a class="dropdown-item"
-                                        href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"><i
-                                            class="bi bi-bookmark"></i> Saved</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>
-                                        Switch Account</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>
-                                        Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" id="moreDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-list"></i> More
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="moreDropdown">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>
+                                            Settings</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"><i
+                                                class="bi bi-bookmark"></i> Saved</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>
+                                            Switch Account</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>
+                                            Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -198,6 +204,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     @yield('script')
 
 </body>

@@ -1,20 +1,19 @@
-<x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/posts/post-create.css') }}">
-    <button type="button" class="btn btn-primary mt-5" id="viewButton">
-        Add new post
-    </button>
+@extends('layouts.sidebar')
+@section('title', 'Create post')
 
-    <div class="container-fluid row justify-content-center align-items-center d-none" id="mainParent">
-        <div class="row justify-content-center col-11">
-            <div class="col-5" id="widthChangingDiv">
+
+@section('content')
+<div class="container-fluid row w-100" id="mainParent">
+        <div class="row justify-content-center col-12 mt-4">
+            <div class="col-6" id="widthChangingDiv">
                 <div class="card">
                     <button class="btn p-0 m-0 back-arrow-button d-none" id="backArrowButton">
                         <img src="{{ asset('images/posts/arrow.png') }}" class="arrow-img">
                     </button>
                     <h6 class="mx-auto pt-2 font-weight-bold create-post-text">Create new post</h6>
 
-                    <button class="btn p-0 pt-1 m-0" id="closeButton">X
-                    </button>
+                    <a class="btn p-0 pt-1 m-0" id="closeButton" href="{{ route('home.index') }}">X
+                    </a>
                     <hr class="p-0 m-0 transparent">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
                         <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data"
@@ -22,8 +21,8 @@
                             <div
                                 class="images-handeling col-8 d-flex justify-content-center align-items-center flex-column">
                                 <svg aria-label="Icon to represent media such as images or videos" class="mb-3"
-                                    id="svgIcon" fill="currentColor" height="77" role="img"
-                                    viewBox="0 0 97.6 77.3" width="96">
+                                    id="svgIcon" fill="currentColor" height="77" role="img" viewBox="0 0 97.6 77.3"
+                                    width="96">
                                     <title>Icon to represent media such as images or videos</title>
                                     <path
                                         d="M16.3 24h.3c2.8-.2 4.9-2.6 4.8-5.4-.2-2.8-2.6-4.9-5.4-4.8s-4.9 2.6-4.8 5.4c.1 2.7 2.4 4.8 5.1 4.8zm-2.4-7.2c.5-.6 1.3-1 2.1-1h.2c1.7 0 3.1 1.4 3.1 3.1 0 1.7-1.4 3.1-3.1 3.1-1.7 0-3.1-1.4-3.1-3.1 0-.8.3-1.5.8-2.1z"
@@ -45,13 +44,13 @@
                                 </div>
                                 <div id="selectedImages" class="carousel slide" data-bs-interval="false">
                                     <div class="carousel-inner"></div>
-                                    <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#selectedImages" data-bs-slide="prev">
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#selectedImages"
+                                        data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button"
-                                        data-bs-target="#selectedImages" data-bs-slide="next">
+                                    <button class="carousel-control-next" type="button" data-bs-target="#selectedImages"
+                                        data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
@@ -59,13 +58,18 @@
                             </div>
                             <div class="mb-3 col-4 border-left h-100 p-0 m-0 d-none" id="captionAndShare">
                                 <div class="col-md-6 d-flex flex-column justify-content-between align-items-start">
-
+                                    @php
+                                    if($user->image){
+                                        $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($user->image);
+                                    }
+                            
+                                    @endphp
                                     <div class="col-md-3 p-0 m-0 post-userInfo-section">
                                         <div class="post-userInfo-content">
-                                            <img src="{{ $user->avatar }}" class="img-fluid rounded avatar-image"
+                                            <img src="{{ $user->image ? $image : $user->avatar }}" class="img-fluid rounded avatar-image"
                                                 alt="User Avatar">
                                             <div>
-                                                <p class="username"><strong>{{ $user->username }}</strong></p>
+                                                <p class="username"><strong>{{ substr($user->username, 0, 10) }}</strong></p>
                                             </div>
                                         </div>
                                     </div>
@@ -164,199 +168,197 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('styles')
     <link rel="stylesheet" href="{{ asset('css/posts/post-create.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+@endsection
 
-    @push('scripts')
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src=""></script>
-        <script>
-            $(document).on('click', '.tag-suggestion', function() {
-                let suggestedTag = $(this).text();
-                let content = $('#content').val();
-                let cursorPosition = $('#content')[0].selectionStart;
-                let tagStart = content.lastIndexOf('#', cursorPosition - 1);
-                let newText = content.substring(0, tagStart + 1) + suggestedTag.substring(1) + ' ' + content.substring(
-                    cursorPosition);
-                $('#content').val(newText);
-                $('#tagSuggestions ul').removeClass('show');
-                $('#content').focus();
+@section('script')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).on('click', '.tag-suggestion', function() {
+            let suggestedTag = $(this).text();
+            let content = $('#content').val();
+            let cursorPosition = $('#content')[0].selectionStart;
+            let tagStart = content.lastIndexOf('#', cursorPosition - 1);
+            let newText = content.substring(0, tagStart + 1) + suggestedTag.substring(1) + ' ' + content.substring(
+                cursorPosition);
+            $('#content').val(newText);
+            $('#tagSuggestions ul').removeClass('show');
+            $('#content').focus();
+        });
+        $(document).ready(function() {
+            $('#content').on('input', function() {
+                var maxLength = 2200;
+                var length = $(this).val().length;
+                var remainingCharacters = maxLength - length;
+                $('#character-counter').text(length + ' / ' + maxLength);
             });
-            $(document).ready(function() {
-                $('#content').on('input', function() {
-                    var maxLength = 2200;
-                    var length = $(this).val().length;
-                    var remainingCharacters = maxLength - length;
-                    $('#character-counter').text(length + ' / ' + maxLength);
-                });
-            });
+        });
 
-            $('#content').on('keydown', function() {
-                let content = $(this).val();
-                let cursorPosition = $(this)[0].selectionStart;
-                let tagStart = content.lastIndexOf('#', cursorPosition - 1);
+        $('#content').on('keydown', function() {
+            let content = $(this).val();
+            let cursorPosition = $(this)[0].selectionStart;
+            let tagStart = content.lastIndexOf('#', cursorPosition - 1);
 
-                if (tagStart !== -1 && event.keyCode != 32) {
-                    let tag = content.substring(tagStart + 1, cursorPosition);
-                    if (tag.trim() !== '') {
-                        $.ajax({
-                            url: '{{ route("tags.suggest") }}',
-                            type: 'GET',
-                            data: {
-                                tag: tag.trim()
-                            },
-                            success: function(response) {
-                                let dropdownMenu = $('#tagSuggestions ul');
-                                dropdownMenu.empty();
-                                if (response.length > 0) {
-                                    response.forEach(function(tag) {
-                                        dropdownMenu.append(
-                                            '<li class="dropdown-item tag-suggestion cursor-pointer">#' +
-                                            tag
-                                            .name + '</li>'
-                                        );
-                                    });
-                                    $('#tagSuggestions ul').addClass('show');
-                                } else {
-                                    $('#tagSuggestions ul').removeClass('show');
-                                }
-                            },
-
-                            error: function(xhr, status, error) {
-                                console.error(xhr.responseText);
+            if (tagStart !== -1 && event.keyCode != 32) {
+                let tag = content.substring(tagStart + 1, cursorPosition);
+                if (tag.trim() !== '') {
+                    $.ajax({
+                        url: '{{ route('tags.suggest') }}',
+                        type: 'GET',
+                        data: {
+                            tag: tag.trim()
+                        },
+                        success: function(response) {
+                            let dropdownMenu = $('#tagSuggestions ul');
+                            dropdownMenu.empty();
+                            if (response.length > 0) {
+                                response.forEach(function(tag) {
+                                    dropdownMenu.append(
+                                        '<li class="dropdown-item tag-suggestion cursor-pointer">#' +
+                                        tag
+                                        .name + '</li>'
+                                    );
+                                });
+                                $('#tagSuggestions ul').addClass('show');
+                            } else {
+                                $('#tagSuggestions ul').removeClass('show');
                             }
-                        });
-                    } else {
-                        $('#tagSuggestions ul').empty();
-                        $('#tagSuggestions ul').removeClass('show');
-                    }
+                        },
+
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
                 } else {
                     $('#tagSuggestions ul').empty();
                     $('#tagSuggestions ul').removeClass('show');
                 }
-            });
+            } else {
+                $('#tagSuggestions ul').empty();
+                $('#tagSuggestions ul').removeClass('show');
+            }
+        });
 
-            $('#images').on('change', function() {
-                var carouselInner = $('#selectedImages .carousel-inner');
-                carouselInner.empty();
+        $('#images').on('change', function() {
+            var carouselInner = $('#selectedImages .carousel-inner');
+            carouselInner.empty();
 
-                var images = this.files;
-                console.log(images);
-                if (images && images.length > 0) {
-                    for (var i = 0; i < images.length; i++) {
-                        (function(index) {
-                            var reader = new FileReader();
-                            reader.onload = function(e) {
-                                var imageSrc = e.target.result;
-                                var carouselItemClass = (index === 0) ? 'carousel-item active w-100 h-100' :
-                                    'carousel-item';
-                                var imgHtml = '<div class="' + carouselItemClass + '">' +
-                                    '<img src="' + imageSrc +
-                                    '" class="d-block w-100 h-100 img-fluid" alt="Image">' +
-                                    '</div>';
-                                carouselInner.append(imgHtml);
-                            };
-                            reader.readAsDataURL(images[index]);
-                        })(i);
-                    }
+            var images = this.files;
+            console.log(images);
+            if (images && images.length > 0) {
+                for (var i = 0; i < images.length; i++) {
+                    (function(index) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var imageSrc = e.target.result;
+                            var carouselItemClass = (index === 0) ? 'carousel-item active w-100 h-100' :
+                                'carousel-item';
+                            var imgHtml = '<div class="' + carouselItemClass + '">' +
+                                '<img src="' + imageSrc +
+                                '" class="d-block imageToShow w-100 h-100 img-fluid" alt="Image">' +
+                                '</div>';
+                            carouselInner.append(imgHtml);
+                        };
+                        reader.readAsDataURL(images[index]);
+                    })(i);
+                }
 
-                    if (images.length > 1) {
-                        $('#selectedImages .carousel-control-prev').show();
-                        $('#selectedImages .carousel-control-next').show();
-                    } else {
-                        $('#selectedImages .carousel-control-prev').hide();
-                        $('#selectedImages .carousel-control-next').hide();
-                    }
-
-                    $('#selectButton').addClass('d-none');
-                    $('#photosText').addClass('d-none');
-                    $('#svgIcon').addClass('d-none');
-                    $('#backArrowButton').removeClass('d-none');
-                    $('#selectedImages').removeClass('d-none');
-                    $('#shareButton').removeClass('d-none');
-                    $('#widthChangingDiv').addClass('col-7');
-                    $('#widthChangingDiv').removeClass('col-5');
-                    $('#captionAndShare').removeClass('d-none');
+                if (images.length > 1) {
+                    $('#selectedImages .carousel-control-prev').show();
+                    $('#selectedImages .carousel-control-next').show();
                 } else {
-                    $('#selectedImages').removeClass('d-none');
                     $('#selectedImages .carousel-control-prev').hide();
                     $('#selectedImages .carousel-control-next').hide();
-                    $('#selectButton').removeClass('d-none');
-                    $('#photosText').removeClass('d-none');
-                    $('#svgIcon').removeClass('d-none');
-                    $('#backArrowButton').addClass('d-none');
-                    $('#shareButton').addClass('d-none');
-                    $('#widthChangingDiv').removeClass('col-7');
-                    $('#widthChangingDiv').addClass('col-5');
-                    $('#captionAndShare').addClass('d-none');
                 }
-            });
-            $('#backArrowButton').on('click', function() {
-                $('#shareButton').addClass('d-none');
+
+                $('#selectButton').addClass('d-none');
+                $('#photosText').addClass('d-none');
+                $('#svgIcon').addClass('d-none');
+                $('#backArrowButton').removeClass('d-none');
+                $('#selectedImages').removeClass('d-none');
+                $('#shareButton').removeClass('d-none');
+                $('#widthChangingDiv').addClass('col-8');
+                $('#widthChangingDiv').removeClass('col-6');
+                $('#captionAndShare').removeClass('d-none');
+            } else {
+                $('#selectedImages').removeClass('d-none');
+                $('#selectedImages .carousel-control-prev').hide();
+                $('#selectedImages .carousel-control-next').hide();
                 $('#selectButton').removeClass('d-none');
                 $('#photosText').removeClass('d-none');
                 $('#svgIcon').removeClass('d-none');
                 $('#backArrowButton').addClass('d-none');
-                $('#selectedImages').addClass('d-none');
-                $('#widthChangingDiv').removeClass('col-7');
-                $('#widthChangingDiv').addClass('col-5');
+                $('#shareButton').addClass('d-none');
+                $('#widthChangingDiv').removeClass('col-8');
+                $('#widthChangingDiv').addClass('col-6');
                 $('#captionAndShare').addClass('d-none');
-                $images = this.files = [];
-            });
-            document.addEventListener("DOMContentLoaded", function() {
-                var textarea = document.getElementById("content");
+            }
+        });
+        $('#backArrowButton').on('click', function() {
+            $('#shareButton').addClass('d-none');
+            $('#selectButton').removeClass('d-none');
+            $('#photosText').removeClass('d-none');
+            $('#svgIcon').removeClass('d-none');
+            $('#backArrowButton').addClass('d-none');
+            $('#selectedImages').addClass('d-none');
+            $('#widthChangingDiv').removeClass('col-8');
+            $('#widthChangingDiv').addClass('col-6');
+            $('#captionAndShare').addClass('d-none');
+            $images = this.files = [];
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            var textarea = document.getElementById("content");
 
-                var stickers = document.querySelectorAll(".sticker");
+            var stickers = document.querySelectorAll(".sticker");
 
-                stickers.forEach(function(sticker) {
-                    sticker.addEventListener("click", function(event) {
-                        event.preventDefault();
+            stickers.forEach(function(sticker) {
+                sticker.addEventListener("click", function(event) {
+                    event.preventDefault();
 
-                        var currentValue = textarea.value;
+                    var currentValue = textarea.value;
 
-                        var stickerText = sticker.textContent;
+                    var stickerText = sticker.textContent;
 
-                        if (currentValue.indexOf(stickerText) === -1) {
-                            var cursorPosition = textarea.selectionStart;
+                    if (currentValue.indexOf(stickerText) === -1) {
+                        var cursorPosition = textarea.selectionStart;
 
-                            if (!isWithinWord(currentValue, cursorPosition)) {
-                                if (currentValue.charAt(cursorPosition - 1) !== " ") {
-                                    currentValue = currentValue.substring(0, cursorPosition) + " " +
-                                        currentValue.substring(cursorPosition);
-                                    cursorPosition++;
-                                }
-
-                                var newValue =
-                                    currentValue.substring(0, cursorPosition) +
-                                    stickerText +
+                        if (!isWithinWord(currentValue, cursorPosition)) {
+                            if (currentValue.charAt(cursorPosition - 1) !== " ") {
+                                currentValue = currentValue.substring(0, cursorPosition) + " " +
                                     currentValue.substring(cursorPosition);
-
-                                textarea.value = newValue;
-
-                                textarea.selectionStart = cursorPosition + stickerText.length;
-                                textarea.selectionEnd = cursorPosition + stickerText.length;
-
-                                textarea.dispatchEvent(new Event('input'));
-                                $('#content').focus();
+                                cursorPosition++;
                             }
+
+                            var newValue =
+                                currentValue.substring(0, cursorPosition) +
+                                stickerText +
+                                currentValue.substring(cursorPosition);
+
+                            textarea.value = newValue;
+
+                            textarea.selectionStart = cursorPosition + stickerText.length;
+                            textarea.selectionEnd = cursorPosition + stickerText.length;
+
+                            textarea.dispatchEvent(new Event('input'));
+                            $('#content').focus();
                         }
-                    });
+                    }
                 });
-
-                function isWithinWord(text, position) {
-                    return /\S/.test(text.charAt(position - 1)) && /\S/.test(text.charAt(position));
-                }
             });
 
-            $('#viewButton').on('click', function() {
-                $('#mainParent').removeClass('d-none');
-                $('#viewButton').addClass('d-none');
-            });
-            $('#closeButton').on('click', function() {
-                $('#mainParent').addClass('d-none');
-                $('#viewButton').removeClass('d-none');
-            });
-        </script>
-    @endpush
-</x-app-layout>
+            function isWithinWord(text, position) {
+                return /\S/.test(text.charAt(position - 1)) && /\S/.test(text.charAt(position));
+            }
+        });
+
+        $('#viewButton').on('click', function() {
+            $('#mainParent').removeClass('d-none');
+            $('#viewButton').addClass('d-none');
+        });
+    </script>
+@endsection

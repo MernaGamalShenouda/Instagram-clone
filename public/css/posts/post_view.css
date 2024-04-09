@@ -153,3 +153,6 @@
     display: inline-block;
     padding: 5px;
 }
+.imageToShow{
+    max-height: 400px !important;
+}

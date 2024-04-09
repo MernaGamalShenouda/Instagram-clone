@@ -1,10 +1,14 @@
 @extends('layouts.main')
 
 @section('profile_content')
+@php
+if($user->image){
+    $image = "https://res.cloudinary.com/dp3xwqpsq/image/upload/".json_decode($user->image);
+}@endphp
 <!-- User info -->
     <div class="container">
         <div class="profile-header">
-            <img src="{{ $user->avatar }}" alt="Avatar" class="profile-avatar">
+            <img src="{{ $user->image ? $image : $user->avatar }}" alt="Avatar" class="profile-avatar">
             <div class="profile-details">
                 <div class="d-flex align-items-center">
                     <h5>{{ $user->username }}</h5>

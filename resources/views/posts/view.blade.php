@@ -15,7 +15,7 @@
                         @foreach ($images as $index => $image)
                             <div class="carousel-item w-100 h-100 {{ $index === 0 ? 'active' : '' }}">
                                 <img src="https://res.cloudinary.com/dp3xwqpsq/image/upload/{{ $image }}"
-                                    class="d-block h-100 w-100 img-fluid"  alt="Post Image">
+                                    class="d-block imageToShow h-100 w-100 img-fluid"  alt="Post Image">
                             </div>
                         @endforeach
                     </div>
