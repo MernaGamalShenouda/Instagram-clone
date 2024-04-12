@@ -36,10 +36,9 @@ class HomeController extends Controller
 
         $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id')->toArray();
         $suggestions = User::whereNotIn('id', array_merge($followedIds, [$user->id]))->get(); 
+        $followedUsers = User::whereIn('id', $followedIds)->get();
 
-
-
-        return view('home.index', ['user' => $user, 'posts' => $posts, 'suggestions' => $suggestions]);
+        return view('home.index', ['user' => $user, 'posts' => $posts, 'suggestions' => $suggestions,'followedUsers' => $followedUsers]);
     }
 
     public function createComment(Request $request)
@@ -111,11 +110,13 @@ class HomeController extends Controller
     }
     public function showSuggestions(){
         $user = Auth::user();
-        $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
-        $suggestions = User::whereIn('id', $followedIds)
-                        ->where('id', '!=', $user->id)
-                        ->get();
+        // $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id');
+        // $suggestions = User::whereIn('id', $followedIds)
+        //                 ->where('id', '!=', $user->id)
+        //                 ->get();
 
+        $followedIds = Follower::where('follower_id', $user->id)->pluck('followee_id')->toArray();
+        $suggestions = User::whereNotIn('id', array_merge($followedIds, [$user->id]))->get(); 
         return view('home.suggestions', ['suggestions' => $suggestions]);
     }
     public function search(Request $request)

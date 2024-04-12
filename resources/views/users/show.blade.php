@@ -28,9 +28,17 @@
                 @endforeach
             </ul>
 
+            @php
+                    if (Auth::user()->image) {
+                        $image =
+                            'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
+                            json_decode(Auth::user()->image);
+                    }
+
+            @endphp
             <p class="card-text mt-3"><strong>Avatar:</strong></p>
             <div class="col-md-4 mb-3 mx-auto">
-                <img src="{{ $user->avatar }}" class="img-fluid rounded-circle" alt="User Avatar">
+                <img src="{{ $user->image ? $image : $user->avatar }}" class="img-fluid rounded-circle" alt="User Avatar">
             </div>
         </div>
     </div>
