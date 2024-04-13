@@ -30,7 +30,7 @@
                 <h6 class="col-12 offset-4"> Suggested </h6>
             </div>
                 @foreach ($suggestions as $key => $suggestion)
-    @if ($key < 5)
+    @if ($key < 100)
         <div class="row col-12" style="max-height: 65px; margin-left:5px;">
             <div class="col-12 offset-4 profile-bar p-3 d-flex justify-content-between align-items-center">
                 @php

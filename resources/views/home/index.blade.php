@@ -32,15 +32,15 @@
             <div class='col-9'>
             <div class="row">
                 <div class="row story-circles" style="margin-top: 15px; margin-left: 2px;">
-                @php
-                    if (Auth::user()->image) {
-                        $image =
-                            'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
-                            json_decode(Auth::user()->image);
-                    }
-
-                @endphp
+                
                     @foreach($followedUsers as $followedUsers)
+                        @php
+                            if ($followedUsers->image) {
+                                $image =
+                                    'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
+                                    json_decode($followedUsers->image);
+                            }
+                        @endphp
                         <div class="col-1 story mx-3">
                             <div class="story-circle">
                                 <a href="{{ route('profile.show', ['username' => $followedUsers->username]) }}">

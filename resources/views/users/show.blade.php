@@ -29,10 +29,10 @@
             </ul>
 
             @php
-                    if (Auth::user()->image) {
+                    if ($user->image) {
                         $image =
                             'https://res.cloudinary.com/dp3xwqpsq/image/upload/' .
-                            json_decode(Auth::user()->image);
+                            json_decode($user->image);
                     }
 
             @endphp

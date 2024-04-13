@@ -72,7 +72,9 @@
 .card-body {
     /* min-height: 900px !important; */
     overflow: hidden !important;
+    /* min-height: 675px; */
     min-height: 675px;
+    max-height: 675px;
 }
 
 .username h5 {
