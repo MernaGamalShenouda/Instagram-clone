@@ -7,8 +7,50 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# Laravel Instagram Clone
+
+This Laravel Instagram Clone is a full-fledged social media platform that replicates the core functionality of Instagram, allowing users to register, create profiles, share posts, follow other users, like and comment on posts, and more. Built using Laravel, a powerful PHP framework, this project offers a robust foundation for building scalable and feature-rich social networking applications.
+
 ## Demo Video
 [![Demo video](https://img.youtube.com/vi/3LgxKmz5_GE/0.jpg)](https://www.youtube.com/watch?v=3LgxKmz5_GE)
+
+## Features
+
+### User Management
+- **Signup and Login:** Users can register with their email, username, and password, and log in securely to access their accounts.
+- **Password Management:** Forgot password functionality enables users to reset their passwords via email.
+- **Email Verification:** A verification email is sent to new users for email confirmation.
+
+### Profile Management
+- **Edit Profile:** Users can update their profile information including name, avatar, bio, gender, and website.
+- **Change Password:** Users can change their passwords securely.
+- **Profile View Page:** Detailed view of user profiles including followers, following, and posts.
+- **Follow/Unfollow:** Users can follow and unfollow other profiles.
+
+### Posts Management
+- **Create Posts:** Users can upload images or videos with captions and hashtags.
+- **Post View Page:** Detailed view of individual posts with likes, comments, and tags.
+- **Like and Comment:** Users can interact with posts by liking and commenting on them.
+- **Save Posts:** Users can save posts for later viewing.
+
+### Home Page
+- **Feed:** Users can see the latest posts from profiles they follow, with the ability to like and comment.
+- **Search:** Users can search for profiles using name or username.
+
+### Tags Page
+- **Tagged Posts:** Users can view posts related to a specific tag.
+
+## Installation
+
+To set up the Laravel Instagram Clone locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/your_username/instagram-clone.git`
+2. Install dependencies: `composer install`
+3. Create a copy of the `.env.example` file and rename it to `.env`.
+4. Generate application key: `php artisan key:generate`
+5. Set up your database in the `.env` file.
+6. Migrate the database: `php artisan migrate`
+7. Start the local development server: `php artisan serve`
 
 ## About Laravel
 
